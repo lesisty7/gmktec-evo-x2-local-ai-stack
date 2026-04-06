@@ -104,6 +104,18 @@ For the container shape of that stack, see:
 - [../examples/stacks/media/README.md](../examples/stacks/media/README.md)
 - [../examples/stacks/media/docker-compose.example.yml](../examples/stacks/media/docker-compose.example.yml)
 
+If you also want manual UI workflows instead of MCP-only usage, see:
+
+- [../examples/comfyui-workflows/README.md](../examples/comfyui-workflows/README.md)
+
+Those exported workflow JSON files are intended to be placed in the normal ComfyUI workflow directory:
+
+- `/opt/ComfyUI/user/default/workflows`
+
+or, when using the mounted user directory pattern from the example stack:
+
+- `${COMFYUI_DATA_ROOT}/user/default/workflows`
+
 ## Practical Recommendation
 
 For a public example repository, the cleanest pattern is:

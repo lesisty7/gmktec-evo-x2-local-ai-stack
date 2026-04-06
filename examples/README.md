@@ -10,6 +10,13 @@ This directory contains public-safe example configuration files.
 
 ## Current Examples
 
+### `comfyui-workflows/`
+
+- exported workflow JSON files
+- [README.md](comfyui-workflows/README.md)
+
+This gives a small, practical set of manual ComfyUI workflows that can be copied into a ComfyUI `user/default/workflows` directory instead of rebuilding the graphs from scratch.
+
 ### `mcp/`
 
 - `comfyui.env.example`
@@ -46,7 +53,7 @@ This captures the bootstrap and persistence shape of a Mattermost deployment wit
 - [README.md](stacks/media/README.md)
 - `docker-compose.example.yml`
 
-This shows the shape of a ComfyUI stack for AMD hardware with persistent mounts. The example now includes a companion `.env.example` so paths, ports, and image tags can be adjusted without turning the compose file into a host-specific export.
+This shows the shape of a ComfyUI stack for AMD hardware with persistent mounts. The example now includes a companion `.env.example` so paths, ports, and image tags can be adjusted without turning the compose file into a host-specific export. See also [comfyui-workflows/README.md](comfyui-workflows/README.md) for manual workflow JSON files and where to place them.
 
 ### `stacks/mcp-playwright/`
 

@@ -9,6 +9,7 @@ This directory contains a public-safe example of the `media` stack shape used by
 - persistent app data mounts
 - a small idle-unloader sidecar
 - a companion `.env.example` for paths, ports, and image tags
+- a matching pattern for storing manual workflow JSON files
 
 ## What It Does Not Guarantee
 
@@ -23,6 +24,7 @@ This directory contains a public-safe example of the `media` stack shape used by
 - adapt paths to your own storage layout
 - review image tags and environment variables for your own platform
 - replace any environment-specific assumptions before real deployment
+- if you want manual ComfyUI workflows, copy the exported JSON files into your ComfyUI workflow directory
 
 ## Notes
 
@@ -30,3 +32,5 @@ This directory contains a public-safe example of the `media` stack shape used by
 - they should be reviewed before use in a live environment
 - the reference stack also uses idle-based ComfyUI unloading; see [../../../docs/memory-recycling.md](../../../docs/memory-recycling.md)
 - MCP-based ComfyUI usage is documented separately in [../../../docs/mcp-comfyui.md](../../../docs/mcp-comfyui.md)
+- manual workflow examples are documented in [../../comfyui-workflows/README.md](../../comfyui-workflows/README.md)
+- in the compose example, the effective workflow destination is `${COMFYUI_DATA_ROOT}/user/default/workflows`

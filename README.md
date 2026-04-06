@@ -15,6 +15,7 @@ It focuses on the parts that are useful to other builders:
 - architecture and deployment choices
 - `llama.cpp` router-mode operation on AMD hardware
 - ComfyUI image and video paths
+- manual ComfyUI workflow examples
 - MCP servers for practical image-generation workflows
 - MCP search integration through a local search backend
 - model storage layout
@@ -154,6 +155,7 @@ If you care about the practical image-generation integration layer, also see:
 1. [docs/mcp-comfyui.md](docs/mcp-comfyui.md)
 2. [examples/mcp/README.md](examples/mcp/README.md)
 3. [scripts/mcp/comfyui_mcp_v2.py](scripts/mcp/comfyui_mcp_v2.py)
+4. [examples/comfyui-workflows/README.md](examples/comfyui-workflows/README.md)
 
 If you care about the practical search integration layer, also see:
 
@@ -199,6 +201,7 @@ Almost every real deployment will need local edits in these categories:
 - Docker image tags and exposed ports
 - router presets in `models.ini`
 - MCP environment variables such as `COMFYUI_BASE_URL` and `SEARXNG_URL`
+- exported ComfyUI workflow JSON files, if you copy them into your own UI workflow library
 
 Treat the examples as structurally correct starting points, not as files that should be copied unchanged.
 
@@ -235,6 +238,26 @@ This matters especially for:
 - stack `.env` files and compose examples
 
 Do not assume that an address shown in this repository is meant to be used unchanged.
+
+## Manual ComfyUI Workflows
+
+This repository also includes exported manual workflow JSON files for ComfyUI:
+
+- Flux image generation and editing examples
+- basic LTX video examples
+- a simple upscale example
+
+See:
+
+- [examples/comfyui-workflows/README.md](examples/comfyui-workflows/README.md)
+
+If you want to use them in the ComfyUI UI, place them in the normal workflow directory:
+
+- `/opt/ComfyUI/user/default/workflows`
+
+If your setup mounts the ComfyUI user directory from the host, place them under the corresponding mounted path instead. In the media stack example from this repository, that means:
+
+- `${COMFYUI_DATA_ROOT}/user/default/workflows`
 
 ## Minimal Validation Checklist
 
