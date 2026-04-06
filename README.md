@@ -60,6 +60,34 @@ The practical bias of the stack is:
 - keep models and persistent service data on mounted storage
 - separate LLM, diffusion, cache, and app-data concerns clearly
 
+```mermaid
+flowchart TD
+    A[GMKtec Evo-X2 hardware<br/>CPU + iGPU + RAM + NVMe]
+    B[Proxmox VE host<br/>ZFS + device exposure]
+    C[Privileged Ubuntu LXC<br/>main AI runtime]
+    D[llama.cpp<br/>router mode]
+    E[Docker inside LXC]
+    F[ComfyUI<br/>image and video]
+    G[OpenWebUI and support tools]
+    H[Automation, search,<br/>vector DB, chat tools]
+    I[/mnt/ai-models<br/>llm + sd + cache]
+    J[/mnt/containers<br/>persistent app data]
+    K[/opt/stacks<br/>compose definitions]
+
+    A --> B
+    B --> C
+    B --> I
+    B --> J
+    C --> D
+    C --> E
+    C --> I
+    C --> J
+    C --> K
+    E --> F
+    E --> G
+    E --> H
+```
+
 For the full diagram and rationale, see [docs/architecture.md](docs/architecture.md).
 
 ## From-Scratch Baseline
