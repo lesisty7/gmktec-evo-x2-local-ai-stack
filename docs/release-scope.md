@@ -9,13 +9,12 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 ### Core documentation
 
 - `README.md`
-- `SECURITY.md`
 - `CONTRIBUTING.md`
 - `LICENSE.md`
-- `STATUS.md`
 - `docs/from-scratch.md`
 - `docs/architecture.md`
 - `docs/stack-overview.md`
+- `docs/deployment-order.md`
 - `docs/service-boundaries.md`
 - `docs/hardware-and-platform.md`
 - `docs/lxc-layout.md`
@@ -29,8 +28,6 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 - `docs/model-layout.md`
 - `docs/model-tree-snapshot.md`
 - `docs/faq.md`
-- `docs/publication-readiness-checklist.md`
-- `docs/screenshot-review.md`
 
 ### Example files
 
@@ -76,6 +73,10 @@ These are good candidates for a later iteration rather than for the first releas
 
 ## Do Not Publish in the First Release
 
+- the current private-draft `SECURITY.md` in its present form
+- `STATUS.md`
+- `docs/publication-readiness-checklist.md`
+- `docs/screenshot-review.md`
 - raw production `.env` files
 - reverse proxy rules from the live environment
 - host-specific operational backups

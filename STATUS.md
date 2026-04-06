@@ -30,7 +30,12 @@ Practical status: `coherent, sanitized, and close to first public release`
 - final review of every example file
 - confirm the current `LICENSE.md` wording is acceptable for first publication
 - confirm screenshots are acceptable for first release
+- prepare the public-facing file set by removing or rewriting private-staging documents such as the current `SECURITY.md`
 
 ## Publication Policy
 
 No public push is allowed until the security audit is explicitly approved.
+
+See also:
+
+- [docs/private-to-public-plan.md](docs/private-to-public-plan.md)
