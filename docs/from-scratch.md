@@ -18,6 +18,10 @@ In the reference build, the original Windows SSD was removed and the storage was
 
 That choice matters because this is documented as a dedicated AI host, not as a stock Windows machine with AI tools layered on top.
 
+It is also a deliberate storage-policy choice, not a claim that every similar machine must use two drives.
+
+You can probably build a simpler version around one SSD if you do not want mirrored ZFS, but then you are intentionally choosing a different persistence and failure model than the reference setup.
+
 ## BIOS and Firmware Direction
 
 Before installing the platform, the important baseline is:

@@ -9,6 +9,15 @@ This repository documents a practical setup based on:
 - `Radeon 8060S / gfx1151`
 - `128 GB RAM`
 - `Proxmox VE -> privileged Ubuntu LXC -> Docker`
+- hardware modified from the stock storage layout
+- original single SSD replaced with `2 x 4 TB NVMe`
+- mirrored ZFS used as the reference storage pattern
+
+That storage choice is intentional, but it is not a universal requirement.
+
+This reference setup uses two drives because mirrored ZFS was the desired operating model for this machine.
+
+A builder can probably use a single SSD instead if they do not want a mirrored layout, but that is a different storage trade-off than the one documented here.
 
 It focuses on the parts that are useful to other builders:
 
