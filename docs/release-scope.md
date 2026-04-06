@@ -22,6 +22,7 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 - `docs/storage-layout.md`
 - `docs/proxmox-zfs-helper.md`
 - `docs/llama-backend.md`
+- `docs/mcp-codex.md`
 - `docs/mcp-comfyui.md`
 - `docs/mcp-search.md`
 - `docs/memory-recycling.md`

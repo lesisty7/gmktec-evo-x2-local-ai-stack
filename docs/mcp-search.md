@@ -71,6 +71,7 @@ See:
 
 - [../examples/mcp/searxng.env.example](../examples/mcp/searxng.env.example)
 - [../examples/mcp/README.md](../examples/mcp/README.md)
+- [mcp-codex.md](mcp-codex.md)
 
 ## Practical Recommendation
 
@@ -80,3 +81,5 @@ For a public example repository, this is a good split:
 2. point the MCP server at it through `SEARXNG_URL`
 3. tune categories, engines, and safesearch through environment variables
 4. keep the MCP script itself generic and publishable
+
+For Codex-specific configuration examples, see [mcp-codex.md](mcp-codex.md).

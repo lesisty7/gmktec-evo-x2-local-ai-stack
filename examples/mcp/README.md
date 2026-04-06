@@ -28,6 +28,7 @@ That makes the scripts easier to publish, easier to reuse, and less tied to one 
 ## Related Files
 
 - [../../docs/mcp-comfyui.md](../../docs/mcp-comfyui.md)
+- [../../docs/mcp-codex.md](../../docs/mcp-codex.md)
 - [../../docs/mcp-search.md](../../docs/mcp-search.md)
 - [../../scripts/mcp/comfyui_mcp_v1.py](../../scripts/mcp/comfyui_mcp_v1.py)
 - [../../scripts/mcp/comfyui_mcp_v2.py](../../scripts/mcp/comfyui_mcp_v2.py)

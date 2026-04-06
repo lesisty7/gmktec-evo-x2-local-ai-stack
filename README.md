@@ -161,6 +161,11 @@ If you care about the practical search integration layer, also see:
 2. [examples/mcp/searxng.env.example](examples/mcp/searxng.env.example)
 3. [scripts/mcp/searxng_mcp.py](scripts/mcp/searxng_mcp.py)
 
+If you want to wire these MCP servers into Codex, see:
+
+1. [docs/mcp-codex.md](docs/mcp-codex.md)
+2. [examples/mcp/README.md](examples/mcp/README.md)
+
 ## `llama.cpp` Path
 
 The local LLM serving path is documented in three layers:

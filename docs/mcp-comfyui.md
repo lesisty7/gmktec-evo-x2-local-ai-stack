@@ -85,12 +85,15 @@ See:
 
 - [../examples/mcp/README.md](../examples/mcp/README.md)
 - [../examples/mcp/comfyui.env.example](../examples/mcp/comfyui.env.example)
+- [mcp-codex.md](mcp-codex.md)
 
 Those files show the intended public-safe configuration pattern:
 
 - keep ComfyUI addressing in environment variables
 - keep model names in environment variables where useful
 - avoid baking private network assumptions into the script body
+
+If you want to wire this into Codex specifically, see [mcp-codex.md](mcp-codex.md) for example `~/.codex/config.toml` sections.
 
 ## Relationship to the Media Stack
 
