@@ -71,6 +71,14 @@ Router mode makes it practical to:
 - expose a cleaner serving interface to upstream tools
 - support chat, embeddings, and multimodal presets in one backend
 
+In the reference setup, router mode is intentionally limited to one loaded model at a time.
+
+That behavior is controlled in `router.env` through:
+
+- `LLAMA_MODELS_MAX=1`
+
+This keeps memory usage more predictable and fits the way the reference stack recycles idle models.
+
 ## Current Update and Build Procedure
 
 The current reference stack uses a management script named `update-llama.sh`.

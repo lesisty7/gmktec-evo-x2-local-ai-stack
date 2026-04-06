@@ -82,6 +82,18 @@ As a practical rule of thumb:
 
 That does not replace testing, but it is a reasonable default heuristic when building a mixed local model inventory.
 
+## Router Capacity Note
+
+In the reference setup, router mode is intentionally configured to keep only one model active at a time.
+
+That is controlled in `router.env` by:
+
+```env
+LLAMA_MODELS_MAX=1
+```
+
+This is a deliberate memory-management choice, not a universal requirement. If you increase it, plan for higher concurrent RAM and VRAM usage.
+
 ## What Each File Does
 
 ### `router.env.example`
