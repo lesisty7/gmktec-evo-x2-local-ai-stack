@@ -1,0 +1,167 @@
+# /etc/llama/models.ini
+#
+# Example 2: reference-style router preset file based on a real mixed model setup.
+# This example is intentionally closer to an actively used configuration than
+# models.ini.example, but it is still only a starting point.
+#
+# Before using it:
+# - download your own models into /mnt/ai-models/llm
+# - remove presets for models you do not have
+# - adjust ctx-size / parallel / idle settings to your RAM/VRAM budget
+#
+
+[default]
+ctx-size = 16196
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 3600
+
+# -----------------------------------------------------------------------------
+# Chat / instruct models
+# -----------------------------------------------------------------------------
+
+[GLM-4.7-Flash-UD-Q6_K_XL]
+model = /mnt/ai-models/llm/GLM-4.7-Flash-UD-Q6_K_XL.gguf
+ctx-size = 202752
+n-gpu-layers = 999
+warmup = 0
+parallel = 2
+
+[Qwen3.5-35B-A3B-UD-Q6_K_XL]
+model = /mnt/ai-models/llm/Qwen3.5-35B-A3B-UD-Q6_K_XL.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+parallel = 2
+
+[Qwen3.5-27B-UD-Q6_K_XL]
+model = /mnt/ai-models/llm/Qwen3.5-27B-UD-Q6_K_XL.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+parallel = 1
+
+[Qwen3.5-9B-UD-Q6_K_XL]
+model = /mnt/ai-models/llm/Qwen3.5-9B-UD-Q6_K_XL.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 1200
+parallel = 2
+
+[Qwen3-Coder-Next-UD-Q4_K_XL]
+model = /mnt/ai-models/llm/Qwen3-Coder-Next-UD-Q4_K_XL.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+parallel = 1
+
+[nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L]
+model = /mnt/ai-models/llm/nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 3600
+parallel = 6
+
+[gemma-4-26B-A4B-it-UD-Q5_K_XL]
+model = /mnt/ai-models/llm/gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+parallel = 4
+
+[speakleash_Bielik-11B-v3.0-Instruct-Q8_0]
+model = /mnt/ai-models/llm/speakleash_Bielik-11B-v3.0-Instruct-Q8_0.gguf
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 1200
+parallel = 2
+
+[tinyllama-1.1b-chat-v1.0.Q4_0]
+model = /mnt/ai-models/llm/tinyllama-1.1b-chat-v1.0.Q4_0.gguf
+ctx-size = 2048
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 60
+
+# -----------------------------------------------------------------------------
+# Vision-language models
+# -----------------------------------------------------------------------------
+
+[Qwen3-VL-30B-A3B-Instruct-Q4_K_M]
+model = /mnt/ai-models/llm/Qwen3-VL-30B-A3B-Instruct-Q4_K_M/model.gguf
+mmproj = /mnt/ai-models/llm/Qwen3-VL-30B-A3B-Instruct-Q4_K_M/mmproj.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+
+[Qwen3-VL-8B-Instruct-unlocked]
+model = /mnt/ai-models/llm/Qwen3-VL-8B-Instruct-abliterated-v2/model.gguf
+mmproj = /mnt/ai-models/llm/Qwen3-VL-8B-Instruct-abliterated-v2/mmproj.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+
+[Qwen3-VL-Reranker-8B]
+model = /mnt/ai-models/llm/Qwen3-VL-Reranker-8B/model.gguf
+mmproj = /mnt/ai-models/llm/Qwen3-VL-Reranker-8B/mmproj.gguf
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 120
+
+# -----------------------------------------------------------------------------
+# Embeddings models
+# -----------------------------------------------------------------------------
+
+[nomic-embed-text-v1.5.Q4_K_M]
+model = /mnt/ai-models/llm/nomic-embed-text-v1.5.Q4_K_M.gguf
+embeddings = 1
+ctx-size = 2048
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 120
+
+[nomic-embed-text-v2-moe.Q8_0]
+model = /mnt/ai-models/llm/nomic-embed-text-v2-moe.Q8_0.gguf
+embeddings = 1
+ctx-size = 2048
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 120
+parallel = 4
+
+[Qwen3-Embedding-8B-Q6_K]
+model = /mnt/ai-models/llm/Qwen3-Embedding-8B-Q6_K.gguf
+embeddings = 1
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 120
+parallel = 4
+
+[Qwen3-Embedding-8B-Q8_0]
+model = /mnt/ai-models/llm/Qwen3-Embedding-8B-Q8_0.gguf
+embeddings = 1
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 120
+parallel = 2
+
+[Qwen3-VL-Embedding-8B-Q8_0]
+model = /mnt/ai-models/llm/Qwen3-VL-Embedding-8B-Q8_0/model.gguf
+mmproj = /mnt/ai-models/llm/Qwen3-VL-Embedding-8B-Q8_0/mmproj.gguf
+embeddings = 1
+ctx-size = 262144
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 300

@@ -6,6 +6,7 @@ This directory contains the public-safe configuration examples that support the 
 
 - `router.env.example`
 - `models.ini.example`
+- `models.ini.example2`
 
 ## Required Runtime Directories
 
@@ -52,6 +53,20 @@ Holds router presets for:
 - idle shutdown policy through `sleep-idle-seconds`
 
 In practice, this file is expected to be edited by the operator. The example values are only placeholders showing the structure.
+
+### `models.ini.example2`
+
+This is a more realistic reference example based on a mixed production-style model inventory:
+
+- large chat / instruct models
+- coding models
+- multimodal models with `mmproj`
+- embeddings models
+- idle memory recycling through `sleep-idle-seconds`
+
+Use it when you want to start from a layout that is closer to a real router configuration rather than from the smaller generic template.
+
+It is still not a drop-in file. You must remove presets for models you do not have and adjust settings to your hardware budget.
 
 ## Related Files
 
