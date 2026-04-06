@@ -36,13 +36,15 @@ These show the shape of a router-mode `llama.cpp` setup without exposing a priva
 ### `stacks/automation/`
 
 - `.env.example`
+- `docker-compose.example.yml`
 - [README.md](stacks/automation/README.md)
 
-This captures the categories of settings commonly found in an automation stack, but with all private endpoints, IPs, and tokens replaced by placeholders.
+This captures the categories of settings commonly found in an automation stack, but with all private endpoints, IPs, and tokens replaced by placeholders. It now also includes a public-safe Docker Compose example and the small `python-runner` sidecar used by the reference stack.
 
 ### `stacks/mattermost/`
 
 - `.env.example`
+- `docker-compose.example.yml`
 - [README.md](stacks/mattermost/README.md)
 
 This captures the bootstrap and persistence shape of a Mattermost deployment without exposing real credentials, URLs, or operator identities.
@@ -65,6 +67,7 @@ This keeps a small MCP Playwright example separate and easy to understand withou
 ### `stacks/qdrant/`
 
 - `.env.example`
+- `docker-compose.example.yml`
 - [README.md](stacks/qdrant/README.md)
 
 This gives a compact example for a Qdrant deployment with optional backup-related settings and sanitized remote references.
@@ -81,6 +84,7 @@ This gives a compact SearXNG deployment example that complements the MCP search 
 ### `stacks/rocketchat/`
 
 - `.env.example`
+- `docker-compose.example.yml`
 - [README.md](stacks/rocketchat/README.md)
 
 This captures the shape of a Rocket.Chat deployment with MongoDB and SMTP wiring, but with all live URLs and credentials replaced.

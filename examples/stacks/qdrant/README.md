@@ -5,9 +5,16 @@ This directory contains a public-safe environment example for a Qdrant deploymen
 ## What It Shows
 
 - HTTP and gRPC port shaping
+- a Docker Compose example for the stack
 - storage and backup paths
 - optional API key usage
 - a simple remote-backup configuration pattern
+
+## Included Files
+
+- `.env.example`
+- `docker-compose.example.yml`
+- `qdrant-backup.sh`
 
 ## How to Use It
 

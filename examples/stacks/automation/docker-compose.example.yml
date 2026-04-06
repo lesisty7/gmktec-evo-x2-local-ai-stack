@@ -1,0 +1,105 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: postgres-n8n
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai-net
+
+  browserless:
+    image: browserless/chrome:latest
+    container_name: browserless
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MAX_CONCURRENT_SESSIONS=${BROWSERLESS_MAX_CONCURRENT_SESSIONS}
+      - TOKEN=${BROWSERLESS_TOKEN}
+    ports:
+      - "${BROWSERLESS_HOST_PORT}:3000"
+    networks:
+      - ai-net
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:2.4.8
+    container_name: n8n
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${N8N_HOST_PORT}:5678"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - N8N_HOST=${N8N_HOST}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE}
+      - NODES_EXCLUDE=[]
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - N8N_DEFAULT_BINARY_DATA_MODE=filesystem
+      - NODE_OPTIONS=--max-old-space-size=4096
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - TZ=${TZ}
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=${N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE}
+      - N8N_COMMUNITY_PACKAGES_ENABLED=${N8N_COMMUNITY_PACKAGES_ENABLED}
+      - N8N_BLOCK_FILE_ACCESS_TO_N8N_FILES=false
+      - N8N_RESTRICT_FILE_ACCESS_TO=/home/node/.n8n,/home/node/.n8n-files/docs,/mnt/containers/docs-store
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - MATTERMOST_WEBHOOK_URL=${MATTERMOST_WEBHOOK_URL}
+      - MATTERMOST_DEFAULT_CHANNEL=${MATTERMOST_DEFAULT_CHANNEL}
+      - MATTERMOST_DEFAULT_USERNAME=${MATTERMOST_DEFAULT_USERNAME}
+      - MATTERMOST_DEFAULT_ICON_URL=${MATTERMOST_DEFAULT_ICON_URL}
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - NODE_EXTRA_CA_CERTS=/home/node/.n8n/custom-root-ca.crt
+      - RC_API_TOKEN=${RC_API_TOKEN}
+      - RC_API_USER_ID=${RC_API_USER_ID}
+    volumes:
+      - ${N8N_DATA_DIR}:/home/node/.n8n
+      - ${N8N_SCRIPTS_DIR}:/home/node/scripts
+      - ${DOCS_STORE_DIR}:/home/node/.n8n-files/docs:ro
+      - ${AI_MODELS_ROOT}:/data/ai-models:ro
+      - ${DOCS_STORE_DIR}:/data/docs:ro
+      - ${DOCS_STORE_DIR}:/mnt/containers/docs-store:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      browserless:
+        condition: service_started
+    networks:
+      - ai-net
+
+  python-runner:
+    build: ./python-runner
+    container_name: python-runner
+    restart: always
+    volumes:
+      - ${N8N_SCRIPTS_DIR}:/scripts:ro
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}

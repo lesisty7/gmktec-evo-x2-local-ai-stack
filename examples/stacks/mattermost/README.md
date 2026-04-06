@@ -5,9 +5,16 @@ This directory contains a public-safe environment example for a Mattermost deplo
 ## What It Shows
 
 - database credentials and site URL shape
+- a Docker Compose example for the stack
 - bootstrap administrator variables
 - persistent path layout for database, app data, and backups
 - optional bootstrap toggles that are useful during first-time setup
+
+## Included Files
+
+- `.env.example`
+- `docker-compose.example.yml`
+- `mattermost-bootstrap.sh`
 
 ## How to Use It
 

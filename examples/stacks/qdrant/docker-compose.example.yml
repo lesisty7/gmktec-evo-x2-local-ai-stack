@@ -1,0 +1,39 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${QDRANT_HTTP_PORT:-6333}:6333"
+      - "${QDRANT_GRPC_PORT:-6334}:6334"
+    environment:
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
+      - QDRANT__TELEMETRY__DISABLED=${QDRANT__TELEMETRY__DISABLED:-true}
+      - QDRANT_ALLOW_RECOVERY_MODE=${QDRANT_ALLOW_RECOVERY_MODE}
+    volumes:
+      - ${QDRANT_STORAGE_DIR:-/mnt/containers/qdrant-data}:/qdrant/storage
+    networks:
+      - ai-net
+
+  qdrant-backup:
+    image: alpine:3.19
+    container_name: qdrant-backup
+    restart: always
+    depends_on:
+      - qdrant
+    env_file:
+      - .env
+    volumes:
+      - ${QDRANT_BACKUP_DIR:-/mnt/containers/qdrant-backup}:/backup
+      - ./qdrant-backup.sh:/backup/backup.sh:ro
+    command: >
+      /bin/sh -c "apk add --no-cache curl jq && echo \"$${BACKUP_CRON} sh /backup/backup.sh >> /backup/backup.log 2>&1\" | crontab - && crond -f -l 2"
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}

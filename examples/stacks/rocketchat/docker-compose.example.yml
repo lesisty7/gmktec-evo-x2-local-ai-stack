@@ -1,0 +1,72 @@
+services:
+  rocketchat-mongo:
+    image: ${MONGO_IMAGE}
+    container_name: ${MONGO_CONTAINER_NAME}
+    restart: always
+    command:
+      - mongod
+      - --replSet
+      - ${MONGO_REPLSET}
+      - --oplogSize
+      - ${MONGO_OPLOG_SIZE}
+      - --storageEngine
+      - ${MONGO_STORAGE_ENGINE}
+    volumes:
+      - ${MONGO_DATA_DIR}:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh \"mongodb://${MONGO_HOST}:${MONGO_PORT}/admin\" --quiet --eval \"db.runCommand({ ping: 1 })\" >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ai-net
+
+  rocketchat-mongo-init:
+    image: ${MONGO_IMAGE}
+    container_name: ${MONGO_INIT_CONTAINER_NAME}
+    restart: "no"
+    depends_on:
+      rocketchat-mongo:
+        condition: service_healthy
+    command: >
+      bash -c 'for i in {1..30}; do
+        mongosh "mongodb://${MONGO_HOST}:${MONGO_PORT}/admin" --quiet --eval "try { rs.status() } catch (e) { rs.initiate({_id:\"${MONGO_REPLSET}\",members:[{_id:0,host:\"${MONGO_HOST}:${MONGO_PORT}\"}]}) }" && exit 0;
+        sleep 2;
+      done;
+      exit 1'
+    networks:
+      - ai-net
+
+  rocketchat:
+    image: ${RC_IMAGE}
+    container_name: ${ROCKETCHAT_CONTAINER_NAME}
+    restart: always
+    depends_on:
+      rocketchat-mongo:
+        condition: service_healthy
+      rocketchat-mongo-init:
+        condition: service_completed_successfully
+    environment:
+      - ROOT_URL=${ROOT_URL}
+      - PORT=${ROCKETCHAT_INTERNAL_PORT}
+      - MONGO_URL=mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}?replicaSet=${MONGO_REPLSET}
+      - MONGO_OPLOG_URL=mongodb://${MONGO_HOST}:${MONGO_PORT}/local?replicaSet=${MONGO_REPLSET}
+      - MAIL_URL=${MAIL_URL}
+    ports:
+      - "${ROCKETCHAT_HOST_PORT}:${ROCKETCHAT_INTERNAL_PORT}"
+    volumes:
+      - ${ROCKETCHAT_UPLOADS_DIR}:/app/uploads
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - node -e "require('http').get('http://localhost:3000/api/info', res => process.exit(res.statusCode===200?0:1)).on('error', () => process.exit(1));"
+      interval: 20s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    name: ${AI_NET_NAME}
+    external: true

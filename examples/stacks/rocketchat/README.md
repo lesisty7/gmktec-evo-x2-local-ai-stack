@@ -5,9 +5,15 @@ This directory contains a public-safe environment example for a Rocket.Chat depl
 ## What It Shows
 
 - external URL and port shaping
+- a Docker Compose example for the stack
 - MongoDB replica set related variables
 - upload storage location
 - SMTP wiring shape for notifications
+
+## Included Files
+
+- `.env.example`
+- `docker-compose.example.yml`
 
 ## How to Use It
 

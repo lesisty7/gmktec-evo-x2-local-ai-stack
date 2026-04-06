@@ -1,0 +1,126 @@
+services:
+  mattermost-db:
+    container_name: mattermost-db
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${MATTERMOST_DB_USER}
+      - POSTGRES_PASSWORD=${MATTERMOST_DB_PASSWORD}
+      - POSTGRES_DB=mattermost
+      - TZ=${MATTERMOST_TZ:-Europe/Warsaw}
+    volumes:
+      - ${MATTERMOST_DB_PATH:-/mnt/containers/mattermost-db}:/var/lib/postgresql
+    networks:
+      - ai-net
+
+  mattermost:
+    container_name: mattermost
+    image: mattermost/mattermost-team-edition:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MATTERMOST_HOST_PORT}:8065"
+    depends_on:
+      - mattermost-db
+    environment:
+      - TZ=${MATTERMOST_TZ:-Europe/Warsaw}
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://${MATTERMOST_DB_USER}:${MATTERMOST_DB_PASSWORD}@mattermost-db:5432/mattermost?sslmode=disable
+      - MM_SERVICESETTINGS_SITEURL=${MATTERMOST_SITE_URL}
+      - MM_SERVICESETTINGS_LISTENADDRESS=:8065
+      - MM_ADMINCONSOLE_ENABLEDEVELOPERMENU=false
+      - MM_SERVICESETTINGS_ENABLEDEVELOPER=false
+      - MM_SERVICESETTINGS_ENABLECOMMANDLINE=false
+      - MM_SERVICESETTINGS_ENABLEONLYADMINSDISABLED=true
+      - MM_FILESETTINGS_MAXFILESIZE=26214400
+      - MM_TEAMSSETTINGS_ENABLETEAMCREATION=${MATTERMOST_ENABLE_TEAM_CREATION:-false}
+      - MM_USERSANDTEAMSSETTINGS_ENABLEUSERCREATION=${MATTERMOST_ENABLE_USER_CREATION:-false}
+      - MM_EMAILSETTINGS_ENABLESIGNUPWITHEMAIL=${MATTERMOST_ENABLE_SIGNUP_EMAIL:-false}
+      - MM_EMAILSETTINGS_ENABLENOTIFICATIONS=${MATTERMOST_ENABLE_EMAIL_NOTIFICATIONS:-true}
+      - MM_PASSWORDSETTINGS_MINIMUMLENGTH=12
+      - MM_PASSWORDSETTINGS_LOWERCASE=true
+      - MM_PASSWORDSETTINGS_NUMBER=true
+      - MM_PASSWORDSETTINGS_SYMBOL=true
+      - MM_FILESETTINGS_ENABLEFILEUPLOADS=true
+      - MM_FILESETTINGS_AMAZONS3SSE=true
+      - MM_TEAMSETTINGS_ENABLEUSERTYPINGMESSAGES=false
+      - MM_TEAMSETTINGS_ENABLECHANNELDELETION=false
+      - MM_TEAMSETTINGS_ENABLETEAMDELETION=false
+      - MM_TEAMSETTINGS_MAXUSERS=50
+      - MM_LOGSETTINGS_FILEENABLE=true
+      - MM_LOGSETTINGS_CONSOLEENABLE=true
+    volumes:
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/config:/mattermost/config
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/data:/mattermost/data
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/logs:/mattermost/logs
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/plugins:/mattermost/plugins
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/client-plugins:/mattermost/client/plugins
+      - ${MATTERMOST_DATA_PATH:-/mnt/containers/mattermost-data}/bleve-indexes:/mattermost/bleve-indexes
+    networks:
+      - ai-net
+
+  mattermost-bootstrap:
+    container_name: mattermost-bootstrap
+    image: alpine:3.20
+    restart: "no"
+    depends_on:
+      - mattermost
+    env_file:
+      - .env
+    environment:
+      - MATTERMOST_BASE_URL=${MATTERMOST_BASE_URL:-http://mattermost:8065}
+      - MATTERMOST_SITE_URL=${MATTERMOST_SITE_URL}
+      - MATTERMOST_ADMIN_USERNAME=${MATTERMOST_ADMIN_USERNAME}
+      - MATTERMOST_ADMIN_EMAIL=${MATTERMOST_ADMIN_EMAIL}
+      - MATTERMOST_ADMIN_PASSWORD=${MATTERMOST_ADMIN_PASSWORD}
+      - MATTERMOST_TEAM_NAME=${MATTERMOST_TEAM_NAME:-team}
+      - MATTERMOST_TEAM_DISPLAY_NAME=${MATTERMOST_TEAM_DISPLAY_NAME:-Team}
+      - MATTERMOST_CHANNEL_NAME=${MATTERMOST_CHANNEL_NAME:-automation}
+      - MATTERMOST_CHANNEL_DISPLAY_NAME=${MATTERMOST_CHANNEL_DISPLAY_NAME:-automation}
+      - MATTERMOST_WEBHOOK_NAME=${MATTERMOST_WEBHOOK_NAME:-automation-webhook}
+    volumes:
+      - ./mattermost-bootstrap.sh:/bootstrap.sh:ro
+    command: >
+      /bin/sh -c "apk add --no-cache curl jq >/dev/null && /bootstrap.sh"
+    networks:
+      - ai-net
+
+  mattermost-db-backup:
+    container_name: mattermost-db-backup
+    image: postgres:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ${MATTERMOST_BACKUP_PATH:-/mnt/containers/mattermost-backup}:/backup
+    environment:
+      - POSTGRES_USER=${MATTERMOST_DB_USER}
+      - POSTGRES_PASSWORD=${MATTERMOST_DB_PASSWORD}
+      - POSTGRES_HOST=mattermost-db
+      - POSTGRES_DB=mattermost
+      - TZ=${MATTERMOST_TZ:-Europe/Warsaw}
+    entrypoint:
+      - /bin/sh
+      - -c
+    command: >
+      set -eu;
+      cat >/backup/RESTORE_DB.sh <<'EOF';
+      #!/bin/sh
+      set -eu
+      psql -U "$$POSTGRES_USER" -h "$$POSTGRES_HOST" "$$POSTGRES_DB" < "/backup/$$1"
+      EOF
+      chmod +x /backup/RESTORE_DB.sh;
+      while true; do
+        pg_dump -U "$$POSTGRES_USER" -h "$$POSTGRES_HOST" "$$POSTGRES_DB" > "/backup/mattermost_backup_$$(date +%Y%m%d_%H%M%S).sql";
+        sleep "$${MATTERMOST_BACKUP_INTERVAL:-172800}";
+      done
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}
