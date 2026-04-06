@@ -60,3 +60,5 @@ smoke/
 # Git safety for nested local mirrors
 backup/
 
+# Private maintainer notes
+INTERNAL-NOTES.md

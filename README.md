@@ -1,8 +1,6 @@
 # GMKtec Evo-X2 Local AI Stack
 
-Public-safe draft repository for a local AI workstation and homelab stack built around the GMKtec Evo-X2.
-
-This directory is being prepared as a future public repository. It is not ready for publication yet. The goal is to publish architecture, deployment patterns, model organization, and operational notes that are useful to other people while keeping private infrastructure details out of scope.
+Reference documentation and example files for a local AI workstation and homelab stack built around the GMKtec Evo-X2.
 
 ## At a Glance
 
@@ -14,19 +12,6 @@ This directory is being prepared as a future public repository. It is not ready 
 - video path: `LTX 2.3`
 - storage shape: `ZFS`, mirrored NVMe, dedicated model and app-data trees
 
-## Publication Status
-
-Current status: `draft, private, not approved for publishing`
-
-Rules for this draft:
-
-- no publishing without an explicit security review
-- no real IP addresses
-- no passwords, API keys, tokens, or private URLs
-- no raw `.env` files
-- no personal or site-specific production secrets
-- no accidental hostnames or local-only network details unless explicitly sanitized
-
 ## Scope
 
 This repository is intended to document and eventually share:
@@ -37,14 +22,6 @@ This repository is intended to document and eventually share:
 - a documented model layout for both LLM and diffusion workloads
 - a curated ComfyUI image and video workflow setup
 - public-safe example configs and templates
-
-This repository is not intended to publish:
-
-- private infrastructure state
-- complete production `.env` files
-- private operational scripts with secrets baked in
-- internal-only backups
-- machine-specific credentials or trust material
 
 ## Who This Is For
 
@@ -78,20 +55,6 @@ Key ideas:
 - persist models and application data on mounted storage
 - separate LLM and diffusion assets under a predictable directory layout
 
-## Included in This Draft
-
-- architecture documentation
-- hardware and platform notes
-- llama.cpp backend notes
-- a public-safe `llama.cpp` manager script
-- model layout documentation
-- a small Proxmox and ZFS helper
-- an LXC layout note based on the working reference setup
-- FAQ and screenshot review guidance
-- stack overview
-- publication readiness checklist
-- sanitized example configuration files
-
 ## Start Here
 
 Recommended reading order:
@@ -106,19 +69,6 @@ Recommended reading order:
 8. [docs/model-layout.md](docs/model-layout.md)
 9. [docs/proxmox-zfs-helper.md](docs/proxmox-zfs-helper.md)
 10. [docs/publication-readiness-checklist.md](docs/publication-readiness-checklist.md)
-11. [docs/release-scope.md](docs/release-scope.md)
-
-## What Is Already Useful
-
-Even before publication, the current draft already has reusable material:
-
-- a clear host vs LXC vs Docker architecture
-- a documented physical starting point for turning the GMKtec box into a dedicated AI host
-- a documented storage split for models, caches, and persistent app data
-- a practical llama.cpp router-mode operating pattern
-- a public-safe `llama.cpp` build and update script
-- a public-safe snapshot of a mixed LLM and diffusion model tree
-- sanitized example files for router mode and a media stack
 
 ## From-Scratch Starting Point
 
@@ -254,17 +204,18 @@ See:
 - [docs/model-tree-snapshot.md](docs/model-tree-snapshot.md)
 - [examples/README.md](examples/README.md)
 
-## Security First
+## Documentation and Safety
 
-This draft is intentionally biased toward safe publication later, not speed now.
+Additional repository guidance is documented in:
 
-Before anything leaves private storage, complete the checklist in [docs/publication-readiness-checklist.md](docs/publication-readiness-checklist.md) and the controls in [SECURITY.md](SECURITY.md).
-
-For screenshots specifically, also review [docs/screenshot-review.md](docs/screenshot-review.md).
+- [docs/README.md](docs/README.md)
+- [docs/publication-readiness-checklist.md](docs/publication-readiness-checklist.md)
+- [SECURITY.md](SECURITY.md)
+- [LICENSE.md](LICENSE.md)
 
 ## License and Risk
 
-The intended publication model is simple:
+This repository is provided as free software and free documentation:
 
 - free software and free documentation
 - use at your own risk
@@ -272,28 +223,3 @@ The intended publication model is simple:
 - documentation and examples may contain mistakes or become outdated
 
 See [LICENSE.md](LICENSE.md).
-
-## Current Recommendation
-
-Treat this repository as a public-safe staging area, not as the source of truth for live infrastructure.
-
-Use it to:
-
-- refine structure
-- rewrite docs into publication-quality English
-- replace private configs with examples
-- review screenshots and diagrams
-
-Do not use it yet to:
-
-- store live secrets
-- store raw operational dumps
-- mirror private host state blindly
-
-## Near-Term Polish Priorities
-
-- keep terminology stable across all documents
-- replace any remaining source-specific wording with generalized public wording
-- keep examples minimal and clearly marked as examples
-- review screenshots manually before any publication decision
-- keep adding only material that would still make sense to an outside reader
