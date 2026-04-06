@@ -57,6 +57,20 @@ wget -c -O gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf \
 
 After downloading, update `models.ini` so the preset names and paths match the models you actually keep in `/mnt/ai-models/llm`.
 
+## Newer Nemotron Option
+
+If you are reviewing newer large-context candidates, also look at:
+
+- base model: `nvidia/Nemotron-Cascade-2-30B-A3B`
+- GGUF builds: `bartowski/nvidia_Nemotron-Cascade-2-30B-A3B-GGUF`
+
+Reference links:
+
+- <https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B>
+- <https://huggingface.co/bartowski/nvidia_Nemotron-Cascade-2-30B-A3B-GGUF>
+
+It looks like a very promising option for a modern local router lineup, especially if you want a stronger successor candidate next to or instead of older Nemotron presets.
+
 ## Practical Quantization Guidance
 
 [Unsloth](https://huggingface.co/unsloth) is a good source for ready-to-use GGUF model builds.
