@@ -16,6 +16,7 @@ It focuses on the parts that are useful to other builders:
 - `llama.cpp` router-mode operation on AMD hardware
 - ComfyUI image and video paths
 - MCP servers for practical image-generation workflows
+- MCP search integration through a local search backend
 - model storage layout
 - sanitized configuration examples
 
@@ -123,6 +124,7 @@ This repository currently includes:
 - `llama.cpp` backend documentation
 - a public-safe `llama.cpp` management script
 - public-safe MCP server scripts for ComfyUI
+- a public-safe MCP search server example
 - model layout and model tree documentation
 - sanitized example configuration files
 - example stack environment files for selected services
@@ -152,6 +154,12 @@ If you care about the practical image-generation integration layer, also see:
 1. [docs/mcp-comfyui.md](docs/mcp-comfyui.md)
 2. [examples/mcp/README.md](examples/mcp/README.md)
 3. [scripts/mcp/comfyui_mcp_v2.py](scripts/mcp/comfyui_mcp_v2.py)
+
+If you care about the practical search integration layer, also see:
+
+1. [docs/mcp-search.md](docs/mcp-search.md)
+2. [examples/mcp/searxng.env.example](examples/mcp/searxng.env.example)
+3. [scripts/mcp/searxng_mcp.py](scripts/mcp/searxng_mcp.py)
 
 ## `llama.cpp` Path
 

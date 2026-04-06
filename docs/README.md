@@ -26,9 +26,11 @@ Related public-safe script and examples:
 ## MCP and Media
 
 - [mcp-comfyui.md](mcp-comfyui.md)
+- [mcp-search.md](mcp-search.md)
 - [../examples/mcp/README.md](../examples/mcp/README.md)
 - [../scripts/mcp/comfyui_mcp_v1.py](../scripts/mcp/comfyui_mcp_v1.py)
 - [../scripts/mcp/comfyui_mcp_v2.py](../scripts/mcp/comfyui_mcp_v2.py)
+- [../scripts/mcp/searxng_mcp.py](../scripts/mcp/searxng_mcp.py)
 
 ## Host and Storage
 

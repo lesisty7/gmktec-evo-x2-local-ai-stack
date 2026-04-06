@@ -27,3 +27,7 @@ A public-safe MCP server script that exposes a simple ComfyUI image generation p
 ### `mcp/comfyui_mcp_v2.py`
 
 A richer public-safe MCP server script for a newer ComfyUI image workflow, including i2i, edit, inpaint, outpaint, upscale, and model unloading.
+
+### `mcp/searxng_mcp.py`
+
+A public-safe MCP search server script backed by SearXNG, intended for current-information lookup and documentation search.

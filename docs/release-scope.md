@@ -23,6 +23,7 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 - `docs/proxmox-zfs-helper.md`
 - `docs/llama-backend.md`
 - `docs/mcp-comfyui.md`
+- `docs/mcp-search.md`
 - `docs/memory-recycling.md`
 - `docs/model-layout.md`
 - `docs/model-tree-snapshot.md`
@@ -37,6 +38,7 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 - `examples/llama/router.env.example`
 - `examples/mcp/README.md`
 - `examples/mcp/comfyui.env.example`
+- `examples/mcp/searxng.env.example`
 - `examples/stacks/automation/.env.example`
 - `examples/stacks/mcp-playwright/.env.example`
 - `examples/stacks/media/.env.example`
@@ -52,6 +54,7 @@ The goal is to keep the first version useful, coherent, and safe. It is better t
 - `scripts/llama/update-llama.sh`
 - `scripts/mcp/comfyui_mcp_v1.py`
 - `scripts/mcp/comfyui_mcp_v2.py`
+- `scripts/mcp/searxng_mcp.py`
 
 ### Images
 
