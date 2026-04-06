@@ -73,7 +73,7 @@ It looks like a very promising option for a modern local router lineup, especial
 
 ## Practical Quantization Guidance
 
-[Unsloth](https://huggingface.co/unsloth) is a good source for ready-to-use GGUF model builds.
+[Unsloth](https://huggingface.co/unsloth) and [bartowski](https://huggingface.co/bartowski) are both good sources for ready-to-use GGUF model builds.
 
 As a practical rule of thumb:
 
