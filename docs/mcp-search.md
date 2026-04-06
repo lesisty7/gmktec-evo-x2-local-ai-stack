@@ -71,6 +71,9 @@ See:
 
 - [../examples/mcp/searxng.env.example](../examples/mcp/searxng.env.example)
 - [../examples/mcp/README.md](../examples/mcp/README.md)
+- [../examples/stacks/search/README.md](../examples/stacks/search/README.md)
+- [../examples/stacks/search/docker-compose.example.yml](../examples/stacks/search/docker-compose.example.yml)
+- [../examples/stacks/search/searxng/settings.yml.example](../examples/stacks/search/searxng/settings.yml.example)
 - [mcp-codex.md](mcp-codex.md)
 
 ## Practical Recommendation
@@ -81,5 +84,10 @@ For a public example repository, this is a good split:
 2. point the MCP server at it through `SEARXNG_URL`
 3. tune categories, engines, and safesearch through environment variables
 4. keep the MCP script itself generic and publishable
+
+In this repository, the recommended public-safe pairing is:
+
+- backend service example: [../examples/stacks/search/README.md](../examples/stacks/search/README.md)
+- MCP client example: [../examples/mcp/searxng.env.example](../examples/mcp/searxng.env.example)
 
 For Codex-specific configuration examples, see [mcp-codex.md](mcp-codex.md).

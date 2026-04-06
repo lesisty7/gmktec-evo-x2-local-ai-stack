@@ -69,6 +69,15 @@ This keeps a small MCP Playwright example separate and easy to understand withou
 
 This gives a compact example for a Qdrant deployment with optional backup-related settings and sanitized remote references.
 
+### `stacks/search/`
+
+- `.env.example`
+- `docker-compose.example.yml`
+- `searxng/settings.yml.example`
+- [README.md](stacks/search/README.md)
+
+This gives a compact SearXNG deployment example that complements the MCP search server example. Together they show both halves of the search path: the backend service and the MCP client that calls it.
+
 ### `stacks/rocketchat/`
 
 - `.env.example`

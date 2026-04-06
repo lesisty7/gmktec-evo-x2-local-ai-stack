@@ -126,6 +126,7 @@ This repository currently includes:
 - a public-safe `llama.cpp` management script
 - public-safe MCP server scripts for ComfyUI
 - a public-safe MCP search server example
+- a public-safe SearXNG stack example that complements the MCP search server
 - model layout and model tree documentation
 - sanitized example configuration files
 - example stack environment files for selected services
@@ -162,6 +163,7 @@ If you care about the practical search integration layer, also see:
 1. [docs/mcp-search.md](docs/mcp-search.md)
 2. [examples/mcp/searxng.env.example](examples/mcp/searxng.env.example)
 3. [scripts/mcp/searxng_mcp.py](scripts/mcp/searxng_mcp.py)
+4. [examples/stacks/search/README.md](examples/stacks/search/README.md)
 
 If you want to wire these MCP servers into Codex, see:
 

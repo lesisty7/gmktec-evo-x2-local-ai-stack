@@ -30,6 +30,7 @@ That makes the scripts easier to publish, easier to reuse, and less tied to one 
 - [../../docs/mcp-comfyui.md](../../docs/mcp-comfyui.md)
 - [../../docs/mcp-codex.md](../../docs/mcp-codex.md)
 - [../../docs/mcp-search.md](../../docs/mcp-search.md)
+- [../stacks/search/README.md](../stacks/search/README.md)
 - [../../scripts/mcp/comfyui_mcp_v1.py](../../scripts/mcp/comfyui_mcp_v1.py)
 - [../../scripts/mcp/comfyui_mcp_v2.py](../../scripts/mcp/comfyui_mcp_v2.py)
 - [../../scripts/mcp/searxng_mcp.py](../../scripts/mcp/searxng_mcp.py)

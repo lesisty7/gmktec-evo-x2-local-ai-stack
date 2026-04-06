@@ -1,0 +1,32 @@
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: always
+    ports:
+      - "${SEARXNG_PORT}:8080"
+    volumes:
+      - ${SEARXNG_CONFIG_ROOT}:/etc/searxng
+      - ${SEARXNG_DATA_ROOT}:/etc/searxng/data
+    environment:
+      - SEARXNG_BASE_URL=${SEARXNG_BASE_URL}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    networks:
+      - search-net
+
+  redis:
+    image: redis:alpine
+    container_name: search-redis
+    restart: always
+    networks:
+      - search-net
+
+networks:
+  search-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}
