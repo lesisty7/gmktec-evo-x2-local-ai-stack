@@ -23,6 +23,13 @@ Related public-safe script and examples:
 - [../scripts/README.md](../scripts/README.md)
 - [../scripts/llama/update-llama.sh](../scripts/llama/update-llama.sh)
 
+## MCP and Media
+
+- [mcp-comfyui.md](mcp-comfyui.md)
+- [../examples/mcp/README.md](../examples/mcp/README.md)
+- [../scripts/mcp/comfyui_mcp_v1.py](../scripts/mcp/comfyui_mcp_v1.py)
+- [../scripts/mcp/comfyui_mcp_v2.py](../scripts/mcp/comfyui_mcp_v2.py)
+
 ## Host and Storage
 
 - [storage-layout.md](storage-layout.md)

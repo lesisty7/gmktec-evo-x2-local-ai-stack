@@ -10,6 +10,13 @@ This directory contains public-safe example configuration files.
 
 ## Current Examples
 
+### `mcp/`
+
+- `comfyui.env.example`
+- [README.md](mcp/README.md)
+
+This shows the public-safe configuration pattern for MCP-based ComfyUI clients and keeps addressing details outside the script body.
+
 ### `llama/`
 
 - `models.ini.example`

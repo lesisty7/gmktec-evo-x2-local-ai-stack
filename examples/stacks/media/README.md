@@ -29,3 +29,4 @@ This directory contains a public-safe example of the `media` stack shape used by
 - examples in this repository are intentionally conservative and documentation-oriented
 - they should be reviewed before use in a live environment
 - the reference stack also uses idle-based ComfyUI unloading; see [../../../docs/memory-recycling.md](../../../docs/memory-recycling.md)
+- MCP-based ComfyUI usage is documented separately in [../../../docs/mcp-comfyui.md](../../../docs/mcp-comfyui.md)

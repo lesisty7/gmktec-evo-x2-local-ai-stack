@@ -15,6 +15,7 @@ It focuses on the parts that are useful to other builders:
 - architecture and deployment choices
 - `llama.cpp` router-mode operation on AMD hardware
 - ComfyUI image and video paths
+- MCP servers for practical image-generation workflows
 - model storage layout
 - sanitized configuration examples
 
@@ -121,6 +122,7 @@ This repository currently includes:
 - storage and ZFS notes
 - `llama.cpp` backend documentation
 - a public-safe `llama.cpp` management script
+- public-safe MCP server scripts for ComfyUI
 - model layout and model tree documentation
 - sanitized example configuration files
 - example stack environment files for selected services
@@ -144,6 +146,12 @@ If you only care about the local LLM path, go straight to:
 1. [docs/llama-backend.md](docs/llama-backend.md)
 2. [examples/llama/README.md](examples/llama/README.md)
 3. [scripts/llama/update-llama.sh](scripts/llama/update-llama.sh)
+
+If you care about the practical image-generation integration layer, also see:
+
+1. [docs/mcp-comfyui.md](docs/mcp-comfyui.md)
+2. [examples/mcp/README.md](examples/mcp/README.md)
+3. [scripts/mcp/comfyui_mcp_v2.py](scripts/mcp/comfyui_mcp_v2.py)
 
 ## `llama.cpp` Path
 
