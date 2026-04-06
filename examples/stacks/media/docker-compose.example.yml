@@ -1,0 +1,71 @@
+services:
+  comfyui:
+    image: ${COMFYUI_IMAGE}
+    container_name: ${COMFYUI_CONTAINER_NAME}
+    restart: always
+    privileged: true
+    shm_size: ${COMFYUI_SHM_SIZE}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    group_add:
+      - video
+      - render
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PYTORCH_TUNABLEOP_ENABLED=0
+      - ROCBLAS_USE_HIPBLASLT=1
+      - TORCH_ROCM_AOTRITON_ENABLE_EXPERIMENTAL=1
+      - IMAGEIO_FFMPEG_EXE=/opt/.venv/lib/python3.12/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+    ports:
+      - "${COMFYUI_PORT}:8188"
+    volumes:
+      - ${COMFYUI_DATA_ROOT}/app:/opt/ComfyUI
+      - ${COMFYUI_DATA_ROOT}/venv:/opt/.venv
+      - ${SD_MODELS_ROOT}/unet:/opt/ComfyUI/models/unet
+      - ${SD_MODELS_ROOT}/checkpoints:/opt/ComfyUI/models/checkpoints
+      - ${SD_MODELS_ROOT}/loras:/opt/ComfyUI/models/loras
+      - ${SD_MODELS_ROOT}/vae:/opt/ComfyUI/models/vae
+      - ${SD_MODELS_ROOT}/clip:/opt/ComfyUI/models/clip
+      - ${SD_MODELS_ROOT}/text_encoders:/opt/ComfyUI/models/text_encoders
+      - ${SD_MODELS_ROOT}/controlnet:/opt/ComfyUI/models/controlnet
+      - ${SD_MODELS_ROOT}/embeddings:/opt/ComfyUI/models/embeddings
+      - ${SD_MODELS_ROOT}/upscale_models:/opt/ComfyUI/models/upscale_models
+      - ${SD_MODELS_ROOT}/latent_upscale_models:/opt/ComfyUI/models/latent_upscale_models
+      - ${COMFYUI_DATA_ROOT}/output:/opt/ComfyUI/output
+      - ${COMFYUI_DATA_ROOT}/input:/opt/ComfyUI/input
+      - ${COMFYUI_DATA_ROOT}/user:/opt/ComfyUI/user
+    command: ${COMFYUI_ARGS}
+    networks:
+      - ai-net
+
+  comfyui_idle_unloader:
+    image: python:3.12-alpine
+    container_name: ${COMFYUI_IDLE_UNLOADER_CONTAINER_NAME}
+    restart: always
+    environment:
+      - COMFYUI_BASE_URL=http://comfyui:8188
+      - IDLE_SECONDS=${IDLE_SECONDS}
+      - POLL_SECONDS=${POLL_SECONDS}
+      - FREE_COOLDOWN_SECONDS=${FREE_COOLDOWN_SECONDS}
+      - FREE_UNLOAD_MODELS=${FREE_UNLOAD_MODELS}
+      - FREE_MEMORY=${FREE_MEMORY}
+      - STARTUP_WAIT_SECONDS=${STARTUP_WAIT_SECONDS}
+      - PYTHONUNBUFFERED=1
+      - LOG_MODE=${LOG_MODE}
+    volumes:
+      - ./comfyui_idle_unloader.py:/app/comfyui_idle_unloader.py:ro
+    command: ["python", "-u", "/app/comfyui_idle_unloader.py"]
+    depends_on:
+      - comfyui
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true

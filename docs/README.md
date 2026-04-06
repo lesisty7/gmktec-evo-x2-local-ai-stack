@@ -1,0 +1,42 @@
+# Documentation Index
+
+## Core Reading
+
+- [from-scratch.md](from-scratch.md)
+- [architecture.md](architecture.md)
+- [stack-overview.md](stack-overview.md)
+- [service-boundaries.md](service-boundaries.md)
+- [hardware-and-platform.md](hardware-and-platform.md)
+- [lxc-layout.md](lxc-layout.md)
+- [faq.md](faq.md)
+
+## LLM and Model Docs
+
+- [llama-backend.md](llama-backend.md)
+- [memory-recycling.md](memory-recycling.md)
+- [model-layout.md](model-layout.md)
+- [model-tree-snapshot.md](model-tree-snapshot.md)
+
+Related public-safe script and examples:
+
+- [../examples/llama/README.md](../examples/llama/README.md)
+- [../scripts/README.md](../scripts/README.md)
+- [../scripts/llama/update-llama.sh](../scripts/llama/update-llama.sh)
+
+## Host and Storage
+
+- [storage-layout.md](storage-layout.md)
+- [proxmox-zfs-helper.md](proxmox-zfs-helper.md)
+
+## Publication Process
+
+- [publication-readiness-checklist.md](publication-readiness-checklist.md)
+- [release-scope.md](release-scope.md)
+- [screenshot-review.md](screenshot-review.md)
+- [roadmap.md](roadmap.md)
+
+## Notes
+
+- screenshot assets used by the docs are stored in [images](images)
+- example configs are stored under [../examples](../examples)
+- the repository root overview is in [../README.md](../README.md)

@@ -1,0 +1,42 @@
+# Public-safe example for llama.cpp router mode presets
+# Replace paths and adjust context sizes for your own hardware.
+
+[default]
+ctx-size = 16384
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 3600
+
+[example-chat-model]
+model = /mnt/ai-models/llm/example-chat-model-Q5_K_M.gguf
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+parallel = 2
+sleep-idle-seconds = 1200
+
+[example-coder-model]
+model = /mnt/ai-models/llm/example-coder-model-Q4_K_M.gguf
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+parallel = 1
+sleep-idle-seconds = 1200
+
+[example-vl-model]
+model = /mnt/ai-models/llm/example-vl-model/model.gguf
+mmproj = /mnt/ai-models/llm/example-vl-model/mmproj.gguf
+ctx-size = 32768
+n-gpu-layers = 999
+warmup = 0
+sleep-idle-seconds = 600
+
+[example-embedding-model]
+model = /mnt/ai-models/llm/example-embedding-model.gguf
+embeddings = 1
+ctx-size = 8192
+n-gpu-layers = 999
+warmup = 0
+parallel = 4
+sleep-idle-seconds = 120
+

@@ -1,0 +1,62 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+!.env.template
+!.env.sample
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.ovpn
+*.kdbx
+*.age
+*.sops.yaml
+
+# Tokens, credentials, local auth state
+auth.json
+credentials.json
+oauth*.json
+token*.json
+session*.json
+
+# OS and editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+
+# Logs and runtime output
+*.log
+logs/
+tmp/
+cache/
+
+# Local benchmark and generated artifacts
+results/
+artifacts/
+screenshots/
+smoke/
+
+# Git safety for nested local mirrors
+backup/
+

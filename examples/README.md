@@ -1,0 +1,62 @@
+# Examples
+
+This directory contains public-safe example configuration files.
+
+## Principles
+
+- examples should be useful, but not private
+- examples should be minimal and readable
+- examples should not contain live tokens, internal endpoints, or personal infrastructure details
+
+## Current Examples
+
+### `llama/`
+
+- `models.ini.example`
+- `router.env.example`
+- [README.md](llama/README.md)
+
+These show the shape of a router-mode `llama.cpp` setup without exposing a private deployment.
+
+### `stacks/automation/`
+
+- `.env.example`
+- [README.md](stacks/automation/README.md)
+
+This captures the categories of settings commonly found in an automation stack, but with all private endpoints, IPs, and tokens replaced by placeholders.
+
+### `stacks/mattermost/`
+
+- `.env.example`
+- [README.md](stacks/mattermost/README.md)
+
+This captures the bootstrap and persistence shape of a Mattermost deployment without exposing real credentials, URLs, or operator identities.
+
+### `stacks/media/`
+
+- `.env.example`
+- [README.md](stacks/media/README.md)
+- `docker-compose.example.yml`
+
+This shows the shape of a ComfyUI stack for AMD hardware with persistent mounts. The example now includes a companion `.env.example` so paths, ports, and image tags can be adjusted without turning the compose file into a host-specific export.
+
+### `stacks/mcp-playwright/`
+
+- `.env.example`
+- [README.md](stacks/mcp-playwright/README.md)
+
+This keeps a small MCP Playwright example separate and easy to understand without pulling in unrelated stack details.
+
+### `stacks/qdrant/`
+
+- `.env.example`
+- [README.md](stacks/qdrant/README.md)
+
+This gives a compact example for a Qdrant deployment with optional backup-related settings and sanitized remote references.
+
+### `stacks/rocketchat/`
+
+- `.env.example`
+- [README.md](stacks/rocketchat/README.md)
+
+This captures the shape of a Rocket.Chat deployment with MongoDB and SMTP wiring, but with all live URLs and credentials replaced.
