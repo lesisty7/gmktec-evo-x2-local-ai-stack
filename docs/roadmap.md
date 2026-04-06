@@ -17,7 +17,7 @@ What is already done:
 - model layout docs
 - Proxmox helper docs
 - from-scratch setup framing
-- release-scope definition
+- deployment-oriented example coverage across the main stack areas
 
 ## Next Steps
 

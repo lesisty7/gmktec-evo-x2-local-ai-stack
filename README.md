@@ -308,6 +308,7 @@ GMKtec-Evo-X2-public/
 ├── README.md
 ├── SECURITY.md
 ├── LICENSE.md
+├── CONTRIBUTING.md
 ├── docs/
 ├── examples/
 └── scripts/
@@ -325,7 +326,6 @@ Additional repository guidance is documented in:
 
 - [docs/README.md](docs/README.md)
 - [SECURITY.md](SECURITY.md)
-- [docs/publication-readiness-checklist.md](docs/publication-readiness-checklist.md)
 - [LICENSE.md](LICENSE.md)
 
 ## License and Risk

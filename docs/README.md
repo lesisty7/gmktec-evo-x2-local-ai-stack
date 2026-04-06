@@ -42,9 +42,6 @@ Related public-safe script and examples:
 
 ## Publication Process
 
-- [publication-readiness-checklist.md](publication-readiness-checklist.md)
-- [release-scope.md](release-scope.md)
-- [screenshot-review.md](screenshot-review.md)
 - [roadmap.md](roadmap.md)
 
 ## Notes
