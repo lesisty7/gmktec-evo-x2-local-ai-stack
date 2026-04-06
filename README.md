@@ -180,6 +180,25 @@ Important assumption:
 - you must download your own models into the expected directory
 - you must adapt `models.ini` to match your own installed models and routing choices
 
+## Network and IP Assumptions
+
+All addresses, hostnames, and service URLs in this repository should be treated as examples.
+
+If you reuse these examples, you must adapt them to your own environment:
+
+- local IP addresses must match your own LAN layout
+- loopback addresses such as `127.0.0.1` only make sense when the client and service run on the same machine
+- ports and base URLs must match the way you actually expose services in your setup
+
+This matters especially for:
+
+- Codex MCP configuration
+- ComfyUI MCP integration
+- SearXNG MCP integration
+- stack `.env` files and compose examples
+
+Do not assume that an address shown in this repository is meant to be used unchanged.
+
 ## Current Model and Workflow Direction
 
 The current stack is biased toward:
