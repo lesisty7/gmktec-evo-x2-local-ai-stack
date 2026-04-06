@@ -188,6 +188,7 @@ If you reuse these examples, you must adapt them to your own environment:
 
 - local IP addresses must match your own LAN layout
 - loopback addresses such as `127.0.0.1` only make sense when the client and service run on the same machine
+- if the service runs on another host, replace loopback addresses with the real host address, for example something in your own LAN such as `192.168.1.x`
 - ports and base URLs must match the way you actually expose services in your setup
 
 This matters especially for:
