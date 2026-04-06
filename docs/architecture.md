@@ -20,17 +20,17 @@ The stack is split into layers.
 
 ```mermaid
 flowchart TD
-    A[GMKtec Evo-X2 hardware\nCPU + iGPU + RAM + SSDs]
-    B[Proxmox VE host\nZFS storage + device exposure]
-    C[Privileged Ubuntu LXC\nAI runtime container]
-    D[llama.cpp on the LXC OS\nrouter mode]
-    E[Docker inside LXC]
-    F[ComfyUI]
-    G[OpenWebUI and related tools]
-    H[Automation, search,\nvector DB, proxy, support services]
-    I[/mnt/ai-models\nllm + sd + cache]
-    J[/mnt/containers\npersistent app data]
-    K[/opt/stacks\ncompose definitions]
+    A["GMKtec Evo-X2 hardware<br/>CPU + iGPU + RAM + SSDs"]
+    B["Proxmox VE host<br/>ZFS storage + device exposure"]
+    C["Privileged Ubuntu LXC<br/>AI runtime container"]
+    D["llama.cpp on the LXC OS<br/>router mode"]
+    E["Docker inside LXC"]
+    F["ComfyUI"]
+    G["OpenWebUI and related tools"]
+    H["Automation, search,<br/>vector DB, proxy, support services"]
+    I["/mnt/ai-models<br/>llm + sd + cache"]
+    J["/mnt/containers<br/>persistent app data"]
+    K["/opt/stacks<br/>compose definitions"]
 
     A --> B
     B --> C
