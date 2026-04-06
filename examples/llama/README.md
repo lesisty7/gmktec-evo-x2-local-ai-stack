@@ -29,6 +29,45 @@ To make the backend actually usable, the operator must:
 
 The example `models.ini.example` is only a template. It is not meant to be used unchanged.
 
+## Practical Model Download Flow
+
+In the reference setup, model downloads should be done inside the Ubuntu LXC, not on the Proxmox host.
+
+Typical target directory:
+
+```bash
+cd /mnt/ai-models/llm
+```
+
+Example downloads:
+
+```bash
+wget -c -O Qwen3.5-27B-UD-Q6_K_XL.gguf \
+  "https://huggingface.co/unsloth/Qwen3.5-27B-GGUF/resolve/main/Qwen3.5-27B-UD-Q6_K_XL.gguf?download=true"
+
+wget -c -O Qwen3.5-9B-UD-Q6_K_XL.gguf \
+  "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/main/Qwen3.5-9B-UD-Q6_K_XL.gguf?download=true"
+
+wget -c -O Qwen3-Coder-Next-UD-Q4_K_XL.gguf \
+  "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/resolve/main/Qwen3-Coder-Next-UD-Q4_K_XL.gguf?download=true"
+
+wget -c -O gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf \
+  "https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF/resolve/main/gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf?download=true"
+```
+
+After downloading, update `models.ini` so the preset names and paths match the models you actually keep in `/mnt/ai-models/llm`.
+
+## Practical Quantization Guidance
+
+[Unsloth](https://huggingface.co/unsloth) is a good source for ready-to-use GGUF model builds.
+
+As a practical rule of thumb:
+
+- `Q5_K_XL` is usually a good compromise with a bias toward quality
+- `Q4_K_XL` is usually a good compromise with a bias toward smaller size and lower memory use
+
+That does not replace testing, but it is a reasonable default heuristic when building a mixed local model inventory.
+
 ## What Each File Does
 
 ### `router.env.example`

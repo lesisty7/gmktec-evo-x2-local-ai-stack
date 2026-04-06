@@ -60,6 +60,10 @@ sleep-idle-seconds = 600
 parallel = 1
 
 [nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L]
+# Good choice when you care about very large context windows.
+# In practice, a context around ~500000 can be realistic on a strong setup.
+# Theoretical context can go as high as 1000000, but that should be treated
+# as an advanced tuning target rather than a default operating point.
 model = /mnt/ai-models/llm/nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L.gguf
 ctx-size = 262144
 n-gpu-layers = 999
