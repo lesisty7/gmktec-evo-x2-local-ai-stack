@@ -166,6 +166,42 @@ If you want to wire these MCP servers into Codex, see:
 1. [docs/mcp-codex.md](docs/mcp-codex.md)
 2. [examples/mcp/README.md](examples/mcp/README.md)
 
+## What You Must Decide Before Deployment
+
+If you are adapting this repository to a real machine, decide these things first:
+
+- whether your runtime boundary will be `Proxmox -> privileged LXC -> Docker` or something else
+- where your persistent storage roots will live
+- where your model tree will live
+- whether services will talk over loopback, LAN IPs, or a reverse proxy
+- which models you actually want to support
+- whether your MCP scripts run on the same host as the services they call
+
+In practice, an AI agent trying to deploy this for someone should collect these values before editing configs:
+
+- host OS and hypervisor choice
+- container or VM choice
+- storage roots such as `/mnt/ai-models` and `/mnt/containers`
+- real service URLs and ports
+- Python path for MCP servers
+- actual model filenames to be used in `models.ini` or MCP environment variables
+
+Without those decisions, the examples are still useful, but they are not yet deployable.
+
+## What You Will Need To Customize
+
+Almost every real deployment will need local edits in these categories:
+
+- IP addresses, hostnames, and base URLs
+- storage paths and mount points
+- model filenames
+- Python interpreter paths
+- Docker image tags and exposed ports
+- router presets in `models.ini`
+- MCP environment variables such as `COMFYUI_BASE_URL` and `SEARXNG_URL`
+
+Treat the examples as structurally correct starting points, not as files that should be copied unchanged.
+
 ## `llama.cpp` Path
 
 The local LLM serving path is documented in three layers:
@@ -199,6 +235,20 @@ This matters especially for:
 - stack `.env` files and compose examples
 
 Do not assume that an address shown in this repository is meant to be used unchanged.
+
+## Minimal Validation Checklist
+
+After adapting the examples, a deployment is only meaningfully “working” if at least these checks pass:
+
+- the host sees the AMD GPU devices correctly
+- the LXC can access `/dev/dri` and `/dev/kfd`
+- the model directories exist and are mounted where the configs expect them
+- `llama.cpp` starts and can see the models referenced in `models.ini`
+- ComfyUI starts and can see the required model assets
+- MCP servers can reach their target services through the configured base URLs
+- generated files land in the expected output paths
+
+If one of those assumptions is false, the examples may still look correct while the deployment itself is broken.
 
 ## Current Model and Workflow Direction
 
