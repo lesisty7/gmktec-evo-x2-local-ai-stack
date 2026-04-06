@@ -139,12 +139,13 @@ Recommended reading order:
 1. [docs/from-scratch.md](docs/from-scratch.md)
 2. [docs/architecture.md](docs/architecture.md)
 3. [docs/stack-overview.md](docs/stack-overview.md)
-4. [docs/service-boundaries.md](docs/service-boundaries.md)
-5. [docs/llama-backend.md](docs/llama-backend.md)
-6. [docs/memory-recycling.md](docs/memory-recycling.md)
-7. [docs/lxc-layout.md](docs/lxc-layout.md)
-8. [docs/model-layout.md](docs/model-layout.md)
-9. [docs/proxmox-zfs-helper.md](docs/proxmox-zfs-helper.md)
+4. [docs/deployment-order.md](docs/deployment-order.md)
+5. [docs/service-boundaries.md](docs/service-boundaries.md)
+6. [docs/llama-backend.md](docs/llama-backend.md)
+7. [docs/memory-recycling.md](docs/memory-recycling.md)
+8. [docs/lxc-layout.md](docs/lxc-layout.md)
+9. [docs/model-layout.md](docs/model-layout.md)
+10. [docs/proxmox-zfs-helper.md](docs/proxmox-zfs-helper.md)
 
 If you only care about the local LLM path, go straight to:
 

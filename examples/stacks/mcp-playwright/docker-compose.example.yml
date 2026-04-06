@@ -1,0 +1,40 @@
+services:
+  playwright-mcp:
+    image: mcr.microsoft.com/playwright:v1.49.1-jammy
+    container_name: playwright-mcp
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+      - HOST=${MCP_PLAYWRIGHT_HOST}
+      - PORT=${MCP_PLAYWRIGHT_PORT}
+    command:
+      - "npx"
+      - "-y"
+      - "@playwright/mcp@latest"
+      - "--browser"
+      - "chrome"
+      - "--executable-path"
+      - "/ms-playwright/chromium-1209/chrome-linux64/chrome"
+      - "--no-sandbox"
+      - "--isolated"
+      - "--headless"
+      - "--port"
+      - "${MCP_PLAYWRIGHT_PORT}"
+      - "--host"
+      - "${MCP_PLAYWRIGHT_HOST}"
+      - "--allowed-hosts"
+      - "*"
+    ports:
+      - "${MCP_PLAYWRIGHT_PORT}:${MCP_PLAYWRIGHT_PORT}"
+    volumes:
+      - ${MCP_PLAYWRIGHT_DATA_DIR}:/data
+      - ${MCP_PLAYWRIGHT_BROWSERS_DIR}:/ms-playwright
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}

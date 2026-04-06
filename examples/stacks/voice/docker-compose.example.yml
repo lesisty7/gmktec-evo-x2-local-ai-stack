@@ -1,0 +1,23 @@
+services:
+  speaches:
+    image: ghcr.io/speaches-ai/speaches:latest-cpu
+    container_name: speaches
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - WHISPER_MODEL=${WHISPER_MODEL}
+      - WHISPER_COMPUTE_TYPE=${WHISPER_COMPUTE_TYPE}
+      - TTS_ENGINE=${TTS_ENGINE}
+      - PIPER_VOICE=${PIPER_VOICE}
+    ports:
+      - "${SPEACHES_HOST_PORT}:8000"
+    volumes:
+      - ${SPEACHES_CACHE_DIR}:/home/ubuntu/.cache
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}

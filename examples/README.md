@@ -68,9 +68,19 @@ This shows the shape of an Open WebUI stack that sits on top of local AI backend
 ### `stacks/mcp-playwright/`
 
 - `.env.example`
+- `docker-compose.example.yml`
+- `Dockerfile`
 - [README.md](stacks/mcp-playwright/README.md)
 
 This keeps a small MCP Playwright example separate and easy to understand without pulling in unrelated stack details.
+
+### `stacks/docling/`
+
+- `.env.example`
+- `docker-compose.example.yml`
+- [README.md](stacks/docling/README.md)
+
+This shows the shape of a lightweight document-extraction backend with container-safe CPU affinity settings.
 
 ### `stacks/qdrant/`
 
@@ -99,6 +109,14 @@ This gives a compact SearXNG deployment example that complements the MCP search 
 - [README.md](stacks/proxy/README.md)
 
 This gives a neutral reverse-proxy starter package for exposing a small local AI stack through one Nginx gateway without publishing a private routing map.
+
+### `stacks/voice/`
+
+- `.env.example`
+- `docker-compose.example.yml`
+- [README.md](stacks/voice/README.md)
+
+This shows the shape of a small speech stack for STT and TTS that can support higher-level tools such as Open WebUI.
 
 ### `stacks/rocketchat/`
 

@@ -5,6 +5,7 @@
 - [from-scratch.md](from-scratch.md)
 - [architecture.md](architecture.md)
 - [stack-overview.md](stack-overview.md)
+- [deployment-order.md](deployment-order.md)
 - [service-boundaries.md](service-boundaries.md)
 - [hardware-and-platform.md](hardware-and-platform.md)
 - [lxc-layout.md](lxc-layout.md)

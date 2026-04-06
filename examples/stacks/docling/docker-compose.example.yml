@@ -1,0 +1,28 @@
+services:
+  docling:
+    image: quay.io/docling-project/docling-serve-cpu:latest
+    container_name: docling
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${DOCLING_HOST_PORT}:5001"
+    environment:
+      - PORT=${PORT}
+      - ENABLE_UI=${ENABLE_UI}
+      - OMP_NUM_THREADS=${OMP_NUM_THREADS}
+      - MKL_NUM_THREADS=${MKL_NUM_THREADS}
+      - OMP_PROC_BIND=${OMP_PROC_BIND}
+      - KMP_AFFINITY=${KMP_AFFINITY}
+      - ORT_DISABLE_CPU_AFFINITY=${ORT_DISABLE_CPU_AFFINITY}
+      - UVICORN_TIMEOUT_KEEP_ALIVE=${UVICORN_TIMEOUT_KEEP_ALIVE}
+      - UVICORN_TIMEOUT_NOTIFY=${UVICORN_TIMEOUT_NOTIFY}
+    volumes:
+      - ${DOCLING_CACHE_DIR}:/root/.cache/docling
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}
