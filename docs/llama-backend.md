@@ -22,6 +22,11 @@ Key configuration concepts:
 - `models.ini`
 - a small management script
 
+In the reference setup, the operator-managed destination for `router.env` and `models.ini` is:
+
+- `/etc/llama/router.env`
+- `/etc/llama/models.ini`
+
 Public-safe examples are included here:
 
 - [../examples/llama/router.env.example](../examples/llama/router.env.example)
@@ -69,6 +74,10 @@ Router mode makes it practical to:
 ## Current Update and Build Procedure
 
 The current reference stack uses a management script named `update-llama.sh`.
+
+It should be run only inside the main Ubuntu LXC that hosts the AI runtime.
+
+Do not run this script on the Proxmox host.
 
 Its job is to manage:
 
