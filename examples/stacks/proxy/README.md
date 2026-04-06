@@ -26,6 +26,10 @@ This is intentionally a neutral starter package.
 It does **not** try to reproduce the full private routing map of the live system.
 Instead, it shows a clean pattern you can extend for your own domain and service set.
 
+This example is mainly aimed at internal LAN use.
+
+For WAN-facing exposure, automatic TLS management, and a simpler public edge setup, I would usually recommend `Caddy` instead of extending this example directly.
+
 ## How to Use It
 
 1. Copy `.env.example` to `.env`.
