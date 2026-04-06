@@ -23,6 +23,10 @@ The main tool is:
 
 - `search_web`
 
+| Tool | Purpose | Main inputs |
+| --- | --- | --- |
+| `search_web` | Search the web through a local SearXNG backend | `query`, `max_results`, `language`, `categories`, `safesearch`, `engines`, `time_range` |
+
 It supports parameters such as:
 
 - query

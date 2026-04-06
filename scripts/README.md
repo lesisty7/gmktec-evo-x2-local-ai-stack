@@ -31,3 +31,17 @@ A richer public-safe MCP server script for a newer ComfyUI image workflow, inclu
 ### `mcp/searxng_mcp.py`
 
 A public-safe MCP search server script backed by SearXNG, intended for current-information lookup and documentation search.
+
+## Python Dependencies
+
+The published MCP scripts share a small dependency set.
+
+See:
+
+- [mcp/requirements.txt](mcp/requirements.txt)
+
+Install them into the Python environment used by your MCP client, for example:
+
+```bash
+pip install -r scripts/mcp/requirements.txt
+```

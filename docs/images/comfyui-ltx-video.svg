@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320">
+  <style>
+    .title { font: 700 24px sans-serif; fill: #1f2937; }
+    .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 14; ry: 14; }
+    .accent { fill: #fee2e2; }
+    .input { fill: #dbeafe; }
+    .text { font: 600 16px sans-serif; fill: #0f172a; text-anchor: middle; dominant-baseline: middle; }
+    .sub { font: 400 13px sans-serif; fill: #334155; text-anchor: middle; dominant-baseline: middle; }
+    .arrow { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="40" class="title">LTX 2.3 video family: text-to-video and image-to-video</text>
+
+  <rect x="40" y="100" width="140" height="90" class="box input"/>
+  <text x="110" y="135" class="text">Prompt</text>
+  <text x="110" y="162" class="sub">text description</text>
+
+  <rect x="40" y="210" width="140" height="70" class="box input"/>
+  <text x="110" y="240" class="text">Optional Image</text>
+  <text x="110" y="263" class="sub">for i2v only</text>
+
+  <rect x="230" y="100" width="180" height="90" class="box"/>
+  <text x="320" y="135" class="text">Text Encoder</text>
+  <text x="320" y="162" class="sub">Gemma conditioning</text>
+
+  <rect x="460" y="100" width="180" height="90" class="box"/>
+  <text x="550" y="135" class="text">LTX Model</text>
+  <text x="550" y="162" class="sub">video generation core</text>
+
+  <rect x="690" y="100" width="170" height="90" class="box accent"/>
+  <text x="775" y="135" class="text">Distilled LoRA</text>
+  <text x="775" y="162" class="sub">short practical video path</text>
+
+  <rect x="910" y="100" width="170" height="90" class="box"/>
+  <text x="995" y="135" class="text">Sampler / Frames</text>
+  <text x="995" y="162" class="sub">motion, seed, steps</text>
+
+  <rect x="1130" y="100" width="100" height="90" class="box accent"/>
+  <text x="1180" y="135" class="text">MP4</text>
+  <text x="1180" y="162" class="sub">save video</text>
+
+  <path d="M180 145 L230 145" class="arrow"/>
+  <path d="M410 145 L460 145" class="arrow"/>
+  <path d="M640 145 L690 145" class="arrow"/>
+  <path d="M860 145 L910 145" class="arrow"/>
+  <path d="M1080 145 L1130 145" class="arrow"/>
+  <path d="M180 245 L320 245 L320 190" class="arrow"/>
+</svg>

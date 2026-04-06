@@ -40,3 +40,13 @@ This repository is currently a private draft being prepared for future public re
 - review example files line by line
 - review git history, not only current files
 
+## Recommended Local Safety Tooling
+
+If you are working on this repository locally, install `pre-commit` and enable the included hooks:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+The repository includes a `.pre-commit-config.yaml` with a secret-scanning hook so accidental credential commits are more likely to be caught before push.

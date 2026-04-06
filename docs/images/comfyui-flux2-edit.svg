@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360">
+  <style>
+    .title { font: 700 24px sans-serif; fill: #1f2937; }
+    .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; rx: 14; ry: 14; }
+    .accent { fill: #ecfccb; }
+    .mask { fill: #fae8ff; }
+    .text { font: 600 16px sans-serif; fill: #0f172a; text-anchor: middle; dominant-baseline: middle; }
+    .sub { font: 400 13px sans-serif; fill: #334155; text-anchor: middle; dominant-baseline: middle; }
+    .arrow { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="40" class="title">Flux editing family: i2i, edit, inpaint, outpaint</text>
+
+  <rect x="40" y="95" width="140" height="90" class="box accent"/>
+  <text x="110" y="130" class="text">Input Image</text>
+  <text x="110" y="157" class="sub">load and inspect size</text>
+
+  <rect x="220" y="95" width="140" height="90" class="box"/>
+  <text x="290" y="130" class="text">VAE Encode</text>
+  <text x="290" y="157" class="sub">latent from source</text>
+
+  <rect x="220" y="230" width="140" height="90" class="box mask"/>
+  <text x="290" y="265" class="text">Mask / Canvas</text>
+  <text x="290" y="292" class="sub">optional for inpaint/outpaint</text>
+
+  <rect x="400" y="95" width="160" height="90" class="box accent"/>
+  <text x="480" y="130" class="text">Prompt</text>
+  <text x="480" y="157" class="sub">edit instruction or target prompt</text>
+
+  <rect x="600" y="95" width="170" height="90" class="box"/>
+  <text x="685" y="130" class="text">Flux Conditioning</text>
+  <text x="685" y="157" class="sub">text encoder + guidance</text>
+
+  <rect x="810" y="95" width="180" height="90" class="box"/>
+  <text x="900" y="130" class="text">Denoise Control</text>
+  <text x="900" y="157" class="sub">strength / reference latent</text>
+
+  <rect x="1030" y="95" width="110" height="90" class="box"/>
+  <text x="1085" y="130" class="text">VAE</text>
+  <text x="1085" y="157" class="sub">decode</text>
+
+  <rect x="1170" y="95" width="90" height="90" class="box accent"/>
+  <text x="1215" y="130" class="text">Save</text>
+  <text x="1215" y="157" class="sub">image</text>
+
+  <path d="M180 140 L220 140" class="arrow"/>
+  <path d="M360 140 L400 140" class="arrow"/>
+  <path d="M560 140 L600 140" class="arrow"/>
+  <path d="M770 140 L810 140" class="arrow"/>
+  <path d="M990 140 L1030 140" class="arrow"/>
+  <path d="M1140 140 L1170 140" class="arrow"/>
+  <path d="M290 230 L290 190 L900 190 L900 95" class="arrow"/>
+</svg>

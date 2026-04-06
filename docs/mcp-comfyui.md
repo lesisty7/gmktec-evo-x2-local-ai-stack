@@ -18,6 +18,27 @@ These scripts expose ComfyUI workflows as MCP tools so an MCP client can request
 - upscale
 - model unloading through ComfyUI `/free`
 
+## Published Tool Surface
+
+### `v1`
+
+| Tool | Purpose | Main inputs |
+| --- | --- | --- |
+| `generate_image` | Basic checkpoint-based text-to-image generation | `prompt_text`, `width`, `height`, `steps`, `cfg`, `output_format` |
+| `unload_models` | Trigger ComfyUI `/free` | `unload_models`, `free_memory` |
+
+### `v2`
+
+| Tool | Purpose | Main inputs |
+| --- | --- | --- |
+| `generate_image` | Preferred Flux text-to-image path | `prompt_text`, `preset`, `width`, `height`, `steps`, `cfg` |
+| `generate_image_i2i` | Image-to-image generation | `input_image_path`, `prompt_text`, `denoise`, `preset` |
+| `generate_image_edit` | Prompt-guided edit path | `input_image_path`, `edit_instruction`, `denoise`, `preset` |
+| `generate_image_inpaint` | Masked image editing | `input_image_path`, `mask_image_path`, `prompt_text`, `denoise` |
+| `generate_image_outpaint` | Canvas expansion around an image | `input_image_path`, `top`, `right`, `bottom`, `left`, `denoise` |
+| `generate_image_upscale` | Lightweight post-upscale path | `input_image_path`, `upscale_model` |
+| `unload_models` | Trigger ComfyUI `/free` | `unload_models`, `free_memory` |
+
 ## `v1` and `v2`
 
 ### `v1`
@@ -115,6 +136,8 @@ Those exported workflow JSON files are intended to be placed in the normal Comfy
 or, when using the mounted user directory pattern from the example stack:
 
 - `${COMFYUI_DATA_ROOT}/user/default/workflows`
+
+For simplified visual references of those workflow families, see [comfyui-workflow-diagrams.md](comfyui-workflow-diagrams.md).
 
 ## Practical Recommendation
 

@@ -14,6 +14,7 @@
 
 - [llama-backend.md](llama-backend.md)
 - [memory-recycling.md](memory-recycling.md)
+- [comfyui-workflow-diagrams.md](comfyui-workflow-diagrams.md)
 - [model-layout.md](model-layout.md)
 - [model-tree-snapshot.md](model-tree-snapshot.md)
 

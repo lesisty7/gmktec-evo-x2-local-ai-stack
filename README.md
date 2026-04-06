@@ -127,6 +127,7 @@ This repository currently includes:
 - public-safe MCP server scripts for ComfyUI
 - a public-safe MCP search server example
 - a public-safe SearXNG stack example that complements the MCP search server
+- simplified workflow diagrams for the published ComfyUI workflow families
 - model layout and model tree documentation
 - sanitized example configuration files
 - example stack environment files for selected services
@@ -157,6 +158,7 @@ If you care about the practical image-generation integration layer, also see:
 2. [examples/mcp/README.md](examples/mcp/README.md)
 3. [scripts/mcp/comfyui_mcp_v2.py](scripts/mcp/comfyui_mcp_v2.py)
 4. [examples/comfyui-workflows/README.md](examples/comfyui-workflows/README.md)
+5. [docs/comfyui-workflow-diagrams.md](docs/comfyui-workflow-diagrams.md)
 
 If you care about the practical search integration layer, also see:
 

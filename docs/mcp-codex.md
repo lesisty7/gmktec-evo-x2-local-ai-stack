@@ -111,6 +111,19 @@ args = ["/path/to/repo/scripts/mcp/searxng_mcp.py"]
 env = { "SEARXNG_URL" = "http://127.0.0.1:8080/search" }
 ```
 
+## Published MCP Servers and Tools
+
+| Server | Script | Main tools |
+| --- | --- | --- |
+| `local-comfy` | `scripts/mcp/comfyui_mcp_v1.py` | `generate_image`, `unload_models` |
+| `local-comfy-v2` | `scripts/mcp/comfyui_mcp_v2.py` | `generate_image`, `generate_image_i2i`, `generate_image_edit`, `generate_image_inpaint`, `generate_image_outpaint`, `generate_image_upscale`, `unload_models` |
+| `local-search` | `scripts/mcp/searxng_mcp.py` | `search_web` |
+
+For argument-level details, see:
+
+- [mcp-comfyui.md](mcp-comfyui.md)
+- [mcp-search.md](mcp-search.md)
+
 ## Related Files
 
 - [mcp-comfyui.md](mcp-comfyui.md)

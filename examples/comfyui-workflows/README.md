@@ -7,6 +7,7 @@ They are useful when you want to:
 - import working workflows into the ComfyUI UI
 - keep a small curated workflow library under version control
 - reuse the same workflow shapes described by the MCP examples
+- preview the workflow family through simplified diagrams before importing JSON
 
 ## Included Workflows
 
@@ -53,3 +54,5 @@ because the compose example mounts:
 - Model filenames must match your own installed files.
 - Flux and LTX workflows require the matching model family and supporting files.
 - Public examples use the workflow shape from the reference stack, but you should still validate them in your own environment.
+
+For simplified visual references, see [../../docs/comfyui-workflow-diagrams.md](../../docs/comfyui-workflow-diagrams.md).
