@@ -57,6 +57,14 @@ This captures the bootstrap and persistence shape of a Mattermost deployment wit
 
 This shows the shape of a ComfyUI stack for AMD hardware with persistent mounts. The example now includes a companion `.env.example` so paths, ports, and image tags can be adjusted without turning the compose file into a host-specific export. See also [comfyui-workflows/README.md](comfyui-workflows/README.md) for manual workflow JSON files and where to place them.
 
+### `stacks/openwebui/`
+
+- `.env.example`
+- `docker-compose.example.yml`
+- [README.md](stacks/openwebui/README.md)
+
+This shows the shape of an Open WebUI stack that sits on top of local AI backends such as `llama.cpp`, ComfyUI, Tika, and SearXNG.
+
 ### `stacks/mcp-playwright/`
 
 - `.env.example`
@@ -80,6 +88,17 @@ This gives a compact example for a Qdrant deployment with optional backup-relate
 - [README.md](stacks/search/README.md)
 
 This gives a compact SearXNG deployment example that complements the MCP search server example. Together they show both halves of the search path: the backend service and the MCP client that calls it.
+
+### `stacks/proxy/`
+
+- `.env.example`
+- `docker-compose.example.yml`
+- `pre-deploy.sh`
+- `nginx/`
+- `data/landing/index.html`
+- [README.md](stacks/proxy/README.md)
+
+This gives a neutral reverse-proxy starter package for exposing a small local AI stack through one Nginx gateway without publishing a private routing map.
 
 ### `stacks/rocketchat/`
 

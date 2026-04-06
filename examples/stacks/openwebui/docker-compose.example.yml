@@ -1,0 +1,72 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${OPENWEBUI_DATA_DIR}:/app/backend/data
+    environment:
+      - WEBUI_NAME=${WEBUI_NAME}
+      - DEFAULT_USER_ROLE=${DEFAULT_USER_ROLE}
+      - ENABLE_SIGNUP=${ENABLE_SIGNUP}
+      - ENABLE_OLLAMA_API=false
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE_URLS=${OPENAI_API_BASE_URLS}
+      - OPENAI_API_KEYS=${OPENAI_API_KEYS}
+      - AUDIO_OPENAI_API_BASE_URL=${AUDIO_OPENAI_API_BASE_URL}
+      - AUDIO_OPENAI_API_KEY=${AUDIO_OPENAI_API_KEY}
+      - AUDIO_AUTOPLAY=${AUDIO_AUTOPLAY}
+      - ENABLE_RAG_WEB_SEARCH=${ENABLE_RAG_WEB_SEARCH}
+      - RAG_WEB_SEARCH_ENGINE=${RAG_WEB_SEARCH_ENGINE}
+      - RAG_WEB_SEARCH_RESULT_COUNT=${RAG_WEB_SEARCH_RESULT_COUNT}
+      - SEARXNG_QUERY_URL=${SEARXNG_QUERY_URL}
+      - ENABLE_RAG_YOUTUBE_LOADER=${ENABLE_RAG_YOUTUBE_LOADER}
+      - ENABLE_IMAGE_GENERATION=${ENABLE_IMAGE_GENERATION}
+      - IMAGE_GENERATION_ENGINE=${IMAGE_GENERATION_ENGINE}
+      - COMFYUI_BASE_URL=${COMFYUI_BASE_URL}
+      - CONTENT_EXTRACTION_ENGINE=${CONTENT_EXTRACTION_ENGINE}
+      - TIKA_SERVER_URL=${TIKA_SERVER_URL}
+      - ENABLE_CODE_EXECUTION=${ENABLE_CODE_EXECUTION}
+    ports:
+      - "${OPENWEBUI_HOST_PORT}:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - pipelines
+      - tika
+    networks:
+      - ai-net
+
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    container_name: pipelines
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "${PIPELINES_HOST_PORT}:9099"
+    volumes:
+      - ${PIPELINES_DATA_DIR}:/app/pipelines
+    environment:
+      - PIPELINES_API_KEY=${PIPELINES_API_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - ai-net
+
+  tika:
+    image: apache/tika:latest
+    container_name: tika
+    restart: always
+    ports:
+      - "${TIKA_HOST_PORT}:9998"
+    networks:
+      - ai-net
+
+networks:
+  ai-net:
+    external: true
+    name: ${DOCKER_NETWORK_NAME}
