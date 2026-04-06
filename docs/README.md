@@ -9,6 +9,7 @@
 - [service-boundaries.md](service-boundaries.md)
 - [hardware-and-platform.md](hardware-and-platform.md)
 - [lxc-layout.md](lxc-layout.md)
+- [../examples/lxc/README.md](../examples/lxc/README.md)
 - [faq.md](faq.md)
 
 ## LLM and Model Docs

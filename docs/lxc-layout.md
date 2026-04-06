@@ -4,6 +4,10 @@ This document summarizes the current structure of the main AI LXC used by the re
 
 It is based on the actual Proxmox container configuration, but rewritten into a public-safe form.
 
+For a concrete sanitized example, see:
+
+- [../examples/lxc/pct-config-main-lxc.example.conf](../examples/lxc/pct-config-main-lxc.example.conf)
+
 ## Runtime Shape
 
 Current pattern:
@@ -32,6 +36,8 @@ The container is configured with direct access to:
 - `/dev/kfd`
 
 That allows the LXC to use the host-managed AMD stack while keeping the actual workloads inside the container.
+
+In practice, that means the LXC can run ROCm-aware workloads without turning the whole design into a VM passthrough setup.
 
 ## Mount Layout
 
@@ -87,3 +93,21 @@ What tends to matter more is:
 - keeping persistent data outside ephemeral container filesystems
 - using sensible ZFS settings for SSD-backed workloads
 - documenting what each mount is responsible for
+
+## Public Example Scope
+
+The example `pct config` in this repository is intentionally sanitized.
+
+It keeps the useful deployment shape:
+
+- privileged LXC
+- GPU device exposure
+- Docker nesting
+- bind mounts
+- large-memory profile
+
+but replaces environment-specific values such as:
+
+- private IP ranges
+- MAC addresses
+- hostnames that are not needed for understanding the pattern

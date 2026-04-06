@@ -28,10 +28,18 @@ This shows the public-safe configuration pattern for MCP-based ComfyUI and searc
 ### `llama/`
 
 - `models.ini.example`
+- `models.ini.example2`
 - `router.env.example`
 - [README.md](llama/README.md)
 
 These show the shape of a router-mode `llama.cpp` setup without exposing a private deployment.
+
+### `lxc/`
+
+- `pct-config-main-lxc.example.conf`
+- [README.md](lxc/README.md)
+
+This gives a sanitized example of the main Proxmox LXC container config used by the reference stack, including GPU exposure, bind mounts, and Docker nesting.
 
 ### `stacks/automation/`
 
