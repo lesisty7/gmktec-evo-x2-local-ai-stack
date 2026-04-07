@@ -70,7 +70,7 @@ The easiest pattern is:
 2. use a local Linux machine, or Windows with WSL, as the place where your agent runs
 3. generate an SSH key
 4. copy the public key to the target machine
-5. let the agent work through SSH instead of copy-pasting long instructions by hand
+5. run the agent locally, for example on Linux or in Windows WSL, and let it work through SSH instead of copy-pasting long instructions by hand
 
 Minimal example commands:
 
