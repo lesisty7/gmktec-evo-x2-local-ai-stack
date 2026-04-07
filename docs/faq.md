@@ -12,6 +12,32 @@ In practice, this gives three benefits:
 
 This is not a claim that VMs are always worse. It only means that for this specific stack shape, `Proxmox -> privileged Ubuntu LXC -> Docker` was the more practical choice.
 
+## Do I need all of this?
+
+Probably not.
+
+Most people do not need the full stack documented in this repository.
+
+What is documented here is a relatively rich reference setup that combines:
+
+- a hypervisor layer
+- one main AI LXC
+- Dockerized support services
+- local LLM serving
+- image and video generation
+- search, vector storage, UI, and automation components
+
+That can be useful as a reference, but it is not the only sensible way to build a local AI machine.
+
+For many people, a much simpler setup is the better starting point:
+
+- just `llama.cpp`
+- just `ComfyUI`
+- one or two services without Proxmox
+- one local Linux box without LXC or Docker nesting
+
+This repository is designed so you can take only the fragments you need. You do not have to reproduce the full architecture to get value from it.
+
 ## Why not build this around Windows plus GPU passthrough?
 
 Because that would be a different architecture with different trade-offs.
@@ -130,6 +156,23 @@ The biggest practical ideas are not exotic:
 - `autotrim` on SSD-backed storage
 
 Those choices matter more in practice than many smaller "AI tuning" tweaks, especially once the machine starts accumulating large models and persistent service data.
+
+## Do I need ZFS?
+
+Probably not.
+
+For many consumer and single-machine builds, `ext4` should be the default choice.
+
+ZFS starts to make more sense when you are deliberately building around:
+
+- two drives
+- mirrored storage
+- snapshot-oriented workflows
+- stronger separation between datasets
+
+Even in that case, it is still worth configuring it sanely, for example by disabling access time updates and thinking carefully about dataset policy.
+
+On a single SSD, ZFS often adds complexity and extra write pressure without giving the main benefit people usually want from it. In many consumer scenarios, that makes `ext4` the safer default and ZFS the opt-in advanced choice.
 
 ## Is `sync=disabled` recommended?
 

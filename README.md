@@ -71,6 +71,7 @@ The practical bias of the stack is:
 - run web tools and support services in Docker
 - keep models and persistent service data on mounted storage
 - separate LLM, diffusion, cache, and app-data concerns clearly
+- optionally keep agent-style tools such as `Clawbot` or `Hermes` in a separate VM or sibling runtime, calling the local `llama.cpp` backend over the LAN or host bridge
 
 ```mermaid
 flowchart TD
@@ -82,6 +83,7 @@ flowchart TD
     F["ComfyUI<br/>image and video"]
     G["OpenWebUI and support tools"]
     H["Automation, search,<br/>vector DB, chat tools"]
+    L["Optional separate VM or sibling runtime<br/>Clawbot / Hermes / agent tools"]
     I["/mnt/ai-models<br/>llm + sd + cache"]
     J["/mnt/containers<br/>persistent app data"]
     K["/opt/stacks<br/>compose definitions"]
@@ -98,7 +100,18 @@ flowchart TD
     E --> F
     E --> G
     E --> H
+    B --> L
+    L --> D
 ```
+
+One practical extension pattern is to keep a dedicated agent runtime such as `Clawbot` or `Hermes` outside the main AI LXC, for example in a separate VM on the same Proxmox host.
+
+In that pattern, the agent runtime talks to the local `llama.cpp` backend over the network instead of owning the full model runtime itself.
+
+Good candidate models for that kind of setup include:
+
+- `gemma-4-26B-A4B-it-UD-Q5_K_XL` from the current reference model lineup
+- a newer `Nemotron-Cascade-2-30B-A3B` GGUF build if you want to test a more modern large-context option
 
 For the full diagram and rationale, see [docs/architecture.md](docs/architecture.md).
 
