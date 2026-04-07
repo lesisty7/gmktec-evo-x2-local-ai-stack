@@ -2,6 +2,14 @@
 
 Reference documentation and public-safe examples for a local AI workstation stack built around the GMKtec Evo-X2.
 
+Before you start building this kind of setup, the first place I recommend visiting is:
+
+- [kyuz0 on GitHub](https://github.com/kyuz0)
+
+That is where you are likely to find fresher and more professionally maintained Strix Halo information than in this repository.
+
+Also review the `Other Useful Repositories` section below before you begin real deployment work.
+
 This repository documents a practical setup based on:
 
 - `GMKtec Evo-X2`
