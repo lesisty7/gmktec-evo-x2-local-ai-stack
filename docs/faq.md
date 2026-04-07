@@ -51,6 +51,54 @@ This repository documents a dedicated Linux-first AI host:
 
 If your real goal is a GPU-accelerated Windows VM, this repository is not the right primary guide. Some ideas here still transfer, especially around storage layout and service separation, but the runtime model is different.
 
+## How can my AI agent (`Codex`, `Gemini`, `Claude`, `Kimi`, and similar tools) help me with this kind of setup?
+
+Very effectively, if the agent can work over SSH on the target machine.
+
+In practice, an agent is most useful when it can:
+
+- inspect the live filesystem
+- read real configs
+- check running services
+- edit files in place
+- restart only the service that matters
+- validate the result with commands on the target machine
+
+The easiest pattern is:
+
+1. enable an SSH server on the target Linux machine
+2. use a local Linux machine, or Windows with WSL, as the place where your agent runs
+3. generate an SSH key
+4. copy the public key to the target machine
+5. let the agent work through SSH instead of copy-pasting long instructions by hand
+
+Minimal example commands:
+
+```bash
+# on your local Linux machine or in WSL
+ssh-keygen -t ed25519 -C "your-email-or-label"
+ssh-copy-id user@your-target-host
+
+# test access
+ssh user@your-target-host
+```
+
+If `ssh-copy-id` is not available, you can still do it manually:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Then append that public key to:
+
+```text
+~/.ssh/authorized_keys
+```
+
+on the target machine.
+
+Once SSH works cleanly, an agent usually becomes much more useful because it can inspect reality directly instead of relying on partial pasted snippets.
+
 ## Why run `llama.cpp` directly inside the LXC instead of in Docker?
 
 Because it keeps the serving path simpler and removes one unnecessary layer around the LLM backend.
