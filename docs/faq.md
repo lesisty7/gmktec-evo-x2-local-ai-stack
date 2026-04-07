@@ -277,17 +277,6 @@ They are meant to be structurally correct examples, not universal drop-in files.
 
 The repository is intentionally concrete, but it is still a reference stack, not an installer.
 
-## Are the screenshots automatically safe to publish?
-
-No. Even when screenshots look harmless, they still need human review.
-
-In this repository, screenshots are treated as documentation assets, not as inherently safe exports. Before public release, they should always be checked for:
-
-- private hostnames
-- revealing topology details
-- operator identities
-- URLs or addresses that should stay private
-
 ## Is every tuning choice here universally recommended?
 
 No.
