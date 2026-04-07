@@ -337,6 +337,8 @@ If you are building a similar machine or debugging adjacent topics, these reposi
   Useful for Strix Halo-specific Linux and platform work.
 - [isc30/ryzen-gpu-passthrough-proxmox](https://github.com/isc30/ryzen-gpu-passthrough-proxmox?tab=readme-ov-file)
   Useful if you are explicitly exploring GPU passthrough on Proxmox, which is related but not the main architecture documented here.
+- [Strix Halo Wiki: VM iGPU Passthrough](https://strixhalo.wiki/Guides/VM_iGPU_Passthrough)
+  Useful background if you want to explore iGPU passthrough patterns instead of the LXC-first model used in this repository.
 - [treviloan/Comfy-gfx1151](https://github.com/treviloan/Comfy-gfx1151/tree/main)
   Potentially useful for `gfx1151`-specific ComfyUI context, although it may not apply directly to this exact stack shape.
 
