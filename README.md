@@ -329,6 +329,17 @@ See:
 - [docs/model-tree-snapshot.md](docs/model-tree-snapshot.md)
 - [examples/README.md](examples/README.md)
 
+## Other Useful Repositories
+
+If you are building a similar machine or debugging adjacent topics, these repositories are worth reading:
+
+- [kyuz0/amd-strix-halo-toolboxes](https://github.com/kyuz0/amd-strix-halo-toolboxes)
+  Useful for Strix Halo-specific Linux and platform work.
+- [isc30/ryzen-gpu-passthrough-proxmox](https://github.com/isc30/ryzen-gpu-passthrough-proxmox?tab=readme-ov-file)
+  Useful if you are explicitly exploring GPU passthrough on Proxmox, which is related but not the main architecture documented here.
+- [treviloan/Comfy-gfx1151](https://github.com/treviloan/Comfy-gfx1151/tree/main)
+  Potentially useful for `gfx1151`-specific ComfyUI context, although it may not apply directly to this exact stack shape.
+
 ## Repository Layout
 
 ```text
