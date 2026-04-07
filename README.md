@@ -169,6 +169,8 @@ Recommended reading order:
 9. [docs/model-layout.md](docs/model-layout.md)
 10. [docs/proxmox-zfs-helper.md](docs/proxmox-zfs-helper.md)
 
+For shorter answers to common deployment and architecture questions, also see [docs/faq.md](docs/faq.md).
+
 If you only care about the local LLM path, go straight to:
 
 1. [docs/llama-backend.md](docs/llama-backend.md)
