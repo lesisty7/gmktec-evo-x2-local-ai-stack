@@ -339,6 +339,10 @@ If you are building a similar machine or debugging adjacent topics, these reposi
   Useful if you are explicitly exploring GPU passthrough on Proxmox, which is related but not the main architecture documented here.
 - [Strix Halo Wiki: VM iGPU Passthrough](https://strixhalo.wiki/Guides/VM_iGPU_Passthrough)
   Useful background if you want to explore iGPU passthrough patterns instead of the LXC-first model used in this repository.
+- [Level1Techs: Proxmox 9 + Strix Halo GPU passthrough to Ubuntu VM](https://forum.level1techs.com/t/how-to-setup-proxmox-9-with-gpu-passthrough-to-an-ubuntu-25-vm-to-use-ollama-steam-on-strix-halo-max-395/239880)
+  Useful as a real-world passthrough discussion if you want a VM-first design for local AI or gaming workloads.
+- [lhl/strix-halo-testing](https://github.com/lhl/strix-halo-testing/tree/main)
+  Useful for broader Strix Halo testing notes and low-level platform experimentation.
 - [treviloan/Comfy-gfx1151](https://github.com/treviloan/Comfy-gfx1151/tree/main)
   Potentially useful for `gfx1151`-specific ComfyUI context, although it may not apply directly to this exact stack shape.
 
