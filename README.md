@@ -286,6 +286,10 @@ If your setup mounts the ComfyUI user directory from the host, place them under 
 
 - `${COMFYUI_DATA_ROOT}/user/default/workflows`
 
+Treat these workflow JSON files as untested examples.
+
+They may need small fixes, different model names, missing custom-node replacements, or full replacement with better workflows imported from within ComfyUI itself.
+
 ## Minimal Validation Checklist
 
 After adapting the examples, a deployment is only meaningfully “working” if at least these checks pass:

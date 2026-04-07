@@ -139,6 +139,29 @@ or, when using the mounted user directory pattern from the example stack:
 
 For simplified visual references of those workflow families, see [comfyui-workflow-diagrams.md](comfyui-workflow-diagrams.md).
 
+Important limitation:
+
+- the exported workflow JSON files in this repository should be treated as untested examples
+- they may require fixes, model-name changes, node replacement, or full replacement with better workflows imported from inside ComfyUI itself
+- do not assume they will work unchanged on a different machine, image tag, or node set
+
+## Important Upgrade Warning
+
+Be careful with `ComfyUI Manager -> Update All`.
+
+In stacks that mount the ComfyUI application directory from persistent storage, Manager can update the ComfyUI code and custom nodes without updating the Docker image that provides the Python, ROCm, and PyTorch runtime.
+
+That can leave the installation in a mixed state where:
+
+- the ComfyUI code is newer
+- the custom nodes are newer
+- the Docker image is older
+- the runtime inside the image is no longer compatible with the updated code
+
+In practice, that can lead to container restarts, runtime crashes, failed generations, or broken custom node imports.
+
+If that happens, a common recovery path is to update the Docker image to a compatible newer image instead of trying to keep an old image with newly updated ComfyUI code.
+
 ## Practical Recommendation
 
 For a public example repository, the cleanest pattern is:

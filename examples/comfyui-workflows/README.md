@@ -50,9 +50,10 @@ because the compose example mounts:
 
 ## Important Notes
 
-- These are example workflows, not a promise of universal compatibility.
+- These are untested example workflows, not a promise of universal compatibility.
 - Model filenames must match your own installed files.
 - Flux and LTX workflows require the matching model family and supporting files.
 - Public examples use the workflow shape from the reference stack, but you should still validate them in your own environment.
+- Some examples may require fixes, node substitution, or full replacement with more professional workflows imported from within ComfyUI itself.
 
 For simplified visual references, see [../../docs/comfyui-workflow-diagrams.md](../../docs/comfyui-workflow-diagrams.md).

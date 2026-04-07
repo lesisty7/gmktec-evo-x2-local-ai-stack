@@ -34,3 +34,5 @@ This directory contains a public-safe example of the `media` stack shape used by
 - MCP-based ComfyUI usage is documented separately in [../../../docs/mcp-comfyui.md](../../../docs/mcp-comfyui.md)
 - manual workflow examples are documented in [../../comfyui-workflows/README.md](../../comfyui-workflows/README.md)
 - in the compose example, the effective workflow destination is `${COMFYUI_DATA_ROOT}/user/default/workflows`
+- Manager-based in-app updates can break the installation if the ComfyUI code gets ahead of the Docker image runtime
+- if a Manager update breaks generation, updating the Docker image is often a better recovery path than trying to keep an old image with newly updated ComfyUI code
