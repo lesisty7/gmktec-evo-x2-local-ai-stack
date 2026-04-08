@@ -106,15 +106,15 @@ Reference context:
 - hardware family: `GMKtec Evo-X2`, `Ryzen AI Max+ 395`, `Radeon 8060S / gfx1151`
 - measurements taken from real generation runs rather than from a dedicated synthetic bench harness
 
-| Model | Quant | Generated tokens | Wall time | Approx. generation speed |
-|---|---:|---:|---:|---:|
-| `nvidia_Nemotron-3-Nano-30B-A3B` | `Q5_K_L` | `1632` | `26s` | `61.75 tok/s` |
-| `gemma-4-26B-A4B-it` | `UD-Q5_K_XL` | `1820` | `39s` | `46.38 tok/s` |
-| `Qwen3.5-35B-A3B` | `UD-Q6_K_XL` | `2260` | `52s` | `43.30 tok/s` |
-| `GLM-4.7-Flash` | `UD-Q6_K_XL` | `1844` | `37s` | `48.76 tok/s` |
-| `O-Researcher-72B-rl.i1` | `Q4_K_M` | `395` | `1m 26s` | `4.59 tok/s` |
-| `Qwen3.5-27B` | `UD-Q6_K_XL` | `1382` | `2m 56s` | `7.84 tok/s` |
-| `Qwen3.5-9B` | `UD-Q6_K_XL` | `1186` | `48s` | `24.35 tok/s` |
+| Model | Quant | Approx. GGUF size | Generated tokens | Wall time | Approx. generation speed |
+|---|---:|---:|---:|---:|---:|
+| `nvidia_Nemotron-3-Nano-30B-A3B` | `Q5_K_L` | `25G` | `1632` | `26s` | `61.75 tok/s` |
+| `gemma-4-26B-A4B-it` | `UD-Q5_K_XL` | `20G` | `1820` | `39s` | `46.38 tok/s` |
+| `Qwen3.5-35B-A3B` | `UD-Q6_K_XL` | `30G` | `2260` | `52s` | `43.30 tok/s` |
+| `GLM-4.7-Flash` | `UD-Q6_K_XL` | `25G` | `1844` | `37s` | `48.76 tok/s` |
+| `O-Researcher-72B-rl.i1` | `Q4_K_M` | `45G` | `395` | `1m 26s` | `4.59 tok/s` |
+| `Qwen3.5-27B` | `UD-Q6_K_XL` | `24G` | `1382` | `2m 56s` | `7.84 tok/s` |
+| `Qwen3.5-9B` | `UD-Q6_K_XL` | `8.2G` | `1186` | `48s` | `24.35 tok/s` |
 
 Treat these as a snapshot, not as a promise:
 

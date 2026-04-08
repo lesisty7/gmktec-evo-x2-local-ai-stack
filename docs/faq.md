@@ -145,6 +145,34 @@ Because they encode local deployment choices that are almost always machine-spec
 
 Those are exactly the files that usually drift between machines. Keeping them clearly operator-owned makes the stack easier to understand and safer to update.
 
+## How many tokens per second can a PC like this reach on `llama.cpp`?
+
+There is no single honest number.
+
+On this class of hardware, the practical answer depends heavily on:
+
+- model family
+- quantization
+- context size
+- router settings
+- backend choice
+- and, for "thinking" models, time to first output token rather than only steady-state `tok/s`
+
+As a rough Vulkan snapshot from the refreshed reference environment, the observed range was approximately:
+
+- about `4.6 tok/s` on a much heavier `72B` model
+- around `24 tok/s` on a `9B` class model
+- around `43-49 tok/s` on several `26B-35B` models
+- around `62 tok/s` on `nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L`
+
+For the full model-by-model table, see:
+
+- [llama-backend.md](llama-backend.md)
+
+In practice, the more useful question is often not only "how many tokens per second?" but also "how long until the first token appears?".
+
+That is one reason the reference notes call out `gemma` A4B and `Nemotron` A3B style models as especially pleasant in real use on this kind of machine.
+
 ## Why are there so many mounts?
 
 Because the reference stack strongly separates:
