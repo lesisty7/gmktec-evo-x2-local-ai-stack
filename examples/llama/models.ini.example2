@@ -8,7 +8,11 @@
 # - download your own models into /mnt/ai-models/llm
 # - remove presets for models you do not have
 # - adjust ctx-size / parallel / idle settings to your RAM/VRAM budget
+# - treat the larger ctx-size / parallel values here as operator-tuned examples,
+#   not as safe first-boot defaults for debugging
 #
+
+version = 1
 
 [default]
 ctx-size = 16196
@@ -61,13 +65,17 @@ parallel = 1
 
 [nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L]
 # Good choice when you care about very large context windows.
-# In practice, a context around ~500000 can be realistic on a strong setup.
+# In practice, a context in the ~250000 to ~500000 range can be realistic on a
+# strong setup.
 # Theoretical context can go as high as 1000000, but that should be treated
 # as an advanced tuning target rather than a default operating point.
 # Also keep an eye on the newer Nemotron-Cascade-2-30B-A3B family if you are
 # refreshing a local high-context model lineup.
 model = /mnt/ai-models/llm/nvidia_Nemotron-3-Nano-30B-A3B-Q5_K_L.gguf
+# Conservative high-context default:
 ctx-size = 262144
+# Aggressive high-context option on a strong machine:
+#ctx-size = 524288
 n-gpu-layers = 999
 warmup = 0
 sleep-idle-seconds = 3600

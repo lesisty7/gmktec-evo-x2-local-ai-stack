@@ -25,6 +25,7 @@ Related public-safe script and examples:
 - [../examples/llama/README.md](../examples/llama/README.md)
 - [../scripts/README.md](../scripts/README.md)
 - [../scripts/llama/update-llama.sh](../scripts/llama/update-llama.sh)
+- [../scripts/llama/update-llama-vulkan.sh](../scripts/llama/update-llama-vulkan.sh)
 
 ## MCP and Media
 
@@ -49,4 +50,5 @@ Related public-safe script and examples:
 
 - screenshot assets used by the docs are stored in [images](images)
 - example configs are stored under [../examples](../examples)
+- historical files kept for comparison are stored under [../obsolete](../obsolete)
 - the repository root overview is in [../README.md](../README.md)

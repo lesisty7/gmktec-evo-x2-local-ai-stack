@@ -11,14 +11,24 @@ The goal is not to dump every local operational script. The goal is to keep only
 A public-safe `llama.cpp` manager script for:
 
 - cloning or updating `llama.cpp`
-- building the HIP backend
+- building the current default backend
 - protecting operator-owned config files
 - switching between folder scanning and INI preset mode
 - updating the `systemd` service
 
+The current public version defaults to `Vulkan` because that was the verified working backend in the refreshed reference environment. `HIP/ROCm` remains available through `LLAMA_BACKEND=hip`.
+
 Treat it as a reference implementation and adapt it to your own paths and packaging decisions.
 
-In this draft, the public filename is simplified to `update-llama.sh`, but the script logic is intentionally kept very close to the working local source version so the published example stays operational.
+### `llama/update-llama-vulkan.sh`
+
+A very small wrapper that runs `update-llama.sh` with `LLAMA_BACKEND=vulkan`.
+
+It exists mainly to make the currently working backend explicit in public documentation.
+
+### `obsolete/`
+
+Historical or older reference scripts that are still worth preserving for comparison are moved under `obsolete/` instead of being deleted.
 
 ### `mcp/comfyui_mcp_v1.py`
 

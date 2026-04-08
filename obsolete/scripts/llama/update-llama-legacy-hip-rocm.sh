@@ -5,14 +5,6 @@ set -euo pipefail
 # GMKtec Evo-X2: Professional llama.cpp Manager (HIP/ROCm)
 # Features: Build, Versioning, Mode Switching (Folder/INI), Config Protection
 #           Fast Mode Switching (No Recompile), Dependency Management
-# Note (2026-04-08):
-#   ROCm/HSA is currently isolated as a backend-specific runtime issue in this
-#   environment. On tested llama.cpp releases b7472, b8693 and recent master
-#   builds, multiple models crashed during tensor loading with:
-#     segfault in libhsa-runtime64.so.1.18.70101
-#   The same models load and generate correctly on Vulkan, so this script now
-#   defaults to Vulkan for a working setup while keeping HIP/ROCm available via:
-#     LLAMA_BACKEND=hip ./update-llama.sh ...
 # =============================================================================
 
 # --- 1. Default Configuration and Constants ---
@@ -35,32 +27,20 @@ MODELS_DIR="/mnt/ai-models/llm"
 LLAMA_CACHE_DIR="/mnt/ai-models/cache/llama.cpp"
 HF_CACHE_DIR="/mnt/ai-models/cache/hf"
 
-# GPU / runtime settings (AMD Ryzen AI Max+ 395)
-# Keep the fallback override because it stabilized router startup during
-# troubleshooting. It is harmless for the current Vulkan default and remains
-# available if HIP/ROCm needs to be re-tested later.
+# ROCm / Hardware settings (AMD Ryzen AI Max+ 395)
 ROCM_PATH="/opt/rocm"
 HIP_PATH="/opt/rocm"
-HSA_OVERRIDE_GFX_VERSION="11.5.1"
+HSA_OVERRIDE_GFX_VERSION="11.0.1"
 ROCR_VISIBLE_DEVICES="0"
 
 # Build settings
-# Default backend is Vulkan because it is the currently verified working path
-# on this host/LXC. HIP/ROCm stays available as an explicit opt-in backend.
+BUILD_DIR="build-hip"
 CMAKE_BUILD_TYPE="Release"
-LLAMA_BACKEND="${LLAMA_BACKEND:-vulkan}"
-BUILD_DIR=""
-BUILD_LABEL=""
-
-# Default llama.cpp release:
-# - latest GitHub release observed during troubleshooting on 2026-04-08: b8693
-#   (commit e8f508269)
-DEFAULT_LLAMA_VERSION="b8693"
 
 # Internal flags
 SKIP_BUILD=0
 INSTALL_DEPS=1
-TARGET_VERSION="${DEFAULT_LLAMA_VERSION}"
+TARGET_VERSION="master"
 RUN_MODE="${DEFAULT_MODE}"
 CHECK_ONLY=0
 
@@ -90,22 +70,6 @@ need_cmd() {
     command -v "$1" >/dev/null 2>&1 || die "Missing critical command: $1"
 }
 
-set_backend_defaults() {
-  case "${LLAMA_BACKEND}" in
-    hip)
-      BUILD_DIR="build-hip"
-      BUILD_LABEL="HIP/ROCm"
-      ;;
-    vulkan)
-      BUILD_DIR="build-vulkan"
-      BUILD_LABEL="Vulkan"
-      ;;
-    *)
-      die "Unsupported LLAMA_BACKEND='${LLAMA_BACKEND}'. Use 'hip' or 'vulkan'."
-      ;;
-  esac
-}
-
 show_help() {
   cat << EOF
 Usage: $(basename "$0") [OPTIONS] [VERSION]
@@ -113,7 +77,7 @@ Usage: $(basename "$0") [OPTIONS] [VERSION]
 Manages llama.cpp installation, compilation, dependencies, and systemd service.
 
 Arguments:
-  VERSION                    Tag, branch, or commit hash (default: ${DEFAULT_LLAMA_VERSION}).
+  VERSION                    Tag, branch, or commit hash (default: master).
                              (Ignored if using --switch-to-* flags).
 
 Update & Build Options:
@@ -133,13 +97,6 @@ General Options:
   --check-only              Print status only (no changes).
   -h, --help                 Show this help message.
 
-Backend selection:
-  Default backend is '${LLAMA_BACKEND}'.
-  To force ROCm/HIP for a run:
-    LLAMA_BACKEND=hip $(basename "$0") --scan-ini
-  Dedicated Vulkan wrapper:
-    ./update-llama-vulkan.sh --scan-ini
-
 Configuration file behavior:
   The script CHECKS for the existence of /etc/llama/models.ini and router.env.
   If files exist, they are NOT overwritten (preserving your changes).
@@ -147,10 +104,8 @@ Configuration file behavior:
   --check-only never modifies files or systemd state.
 
 Examples:
-  $(basename "$0")                          # Full update to ${DEFAULT_LLAMA_VERSION} + build + folder mode
-  $(basename "$0") --scan-ini               # Full update to ${DEFAULT_LLAMA_VERSION} + build + INI mode
-  LLAMA_BACKEND=hip $(basename "$0") --scan-ini
-                                            # Full update using HIP/ROCm
+  $(basename "$0")                          # Full update to master + build + folder mode
+  $(basename "$0") --scan-ini               # Full update to master + build + INI mode
   $(basename "$0") b4450                    # Full downgrade to b4450 + build
   $(basename "$0") --switch-to-scan-ini     # FAST switch to INI mode (no build)
   $(basename "$0") --check-only             # Print status and exit
@@ -197,12 +152,13 @@ install_dependencies() {
   # - build tools (git, cmake, gcc, pkg-config)
   # - libraries (curl, ssl)
   # - python (for scripts)
+  # - Vulkan (omitted in HIP build, uncomment if needed for other apps)
   apt-get install -y \
     git ca-certificates curl \
     cmake build-essential pkg-config \
     libcurl4-openssl-dev libssl-dev \
     python3 python3-venv python3-pip \
-    libvulkan-dev mesa-vulkan-drivers vulkan-tools
+    # libvulkan-dev mesa-vulkan-drivers glslc vulkan-tools
 
   STATUS_DEPS="Installed/Verified"
   success "Dependencies verified."
@@ -261,7 +217,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-set_backend_defaults
 CURRENT_MODE="${RUN_MODE}"
 
 # -----------------------------------------------------------------------------
@@ -318,31 +273,22 @@ prepare_repo() {
 }
 
 clean_and_build() {
-  STATUS_BUILD="Rebuilt (${BUILD_LABEL})"
+  STATUS_BUILD="Rebuilt (HIP)"
   cd "${LLAMA_DIR}"
 
   log "Cleaning build directory (${BUILD_DIR})..."
   rm -rf "${BUILD_DIR}"
 
-  log "Configuring CMake (${BUILD_LABEL})..."
+  log "Configuring CMake (HIP/ROCm)..."
+  export ROCM_PATH="${ROCM_PATH}"
+  export HIP_PATH="${HIP_PATH}"
 
-  case "${LLAMA_BACKEND}" in
-    hip)
-      export ROCM_PATH="${ROCM_PATH}"
-      export HIP_PATH="${HIP_PATH}"
-      cmake -B "${BUILD_DIR}" \
-        -DGGML_HIP=ON \
-        -DGGML_HIPBLAS=ON \
-        -DAMDGPU_TARGETS="gfx1151" \
-        -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" \
-        -DCMAKE_PREFIX_PATH="${ROCM_PATH}"
-      ;;
-    vulkan)
-      cmake -B "${BUILD_DIR}" \
-        -DGGML_VULKAN=ON \
-        -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
-      ;;
-  esac
+  cmake -B "${BUILD_DIR}" \
+    -DGGML_HIP=ON \
+    -DGGML_HIPBLAS=ON \
+    -DAMDGPU_TARGETS="gfx1101" \
+    -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" \
+    -DCMAKE_PREFIX_PATH="${ROCM_PATH}"
 
   log "Compiling (Jobs: $(nproc))..."
   cmake --build "${BUILD_DIR}" --config Release -j"$(nproc)"
@@ -373,10 +319,8 @@ ensure_ini_file() {
 
   cat >"${INI_FILE}" <<INIEOF
 # /etc/llama/models.ini
-# llama.cpp llama-server (Router Mode) — model presets (INI)
+# llama.cpp llama-server — Router Mode model presets (INI)
 # Created by update script on $(date -Is)
-
-version = 1
 
 # -----------------------------------------------------------------------------
 # "Default" preset
@@ -385,6 +329,7 @@ version = 1
 ctx-size = 16196
 n-gpu-layers = 999
 warmup = 0
+# sleep-idle-seconds = 3600
 
 # -----------------------------------------------------------------------------
 # Local GGUF models
@@ -451,18 +396,17 @@ ensure_env_file() {
   STATUS_ENV="Created New"
 
   cat >"${ENV_FILE}" <<ENVEOF
-# Generated by update-llama.sh on $(date -Is)
+# Generated by update-llama-ultimate.sh on $(date -Is)
 # Version: ${TARGET_VERSION}
 
 # Hardware / ROCm
 ROCM_PATH=${ROCM_PATH}
 HIP_PATH=${HIP_PATH}
+HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION}
 ROCR_VISIBLE_DEVICES=${ROCR_VISIBLE_DEVICES}
 # Fix library paths for ROCm
 LD_LIBRARY_PATH=${ROCM_PATH}/lib:\${LD_LIBRARY_PATH}
 PATH=${ROCM_PATH}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-LLAMA_ARG_FLASH_ATTN=on
-LLAMA_ARG_MMAP=0
 
 # Caches
 LLAMA_CACHE=${LLAMA_CACHE_DIR}
@@ -484,77 +428,18 @@ ENVEOF
   chmod 0644 "${ENV_FILE}"
 }
 
-sync_env_file() {
-  local BIN_PATH="${LLAMA_DIR}/${BUILD_DIR}/bin/llama-server"
-  local tmp_env
-  tmp_env="$(mktemp)"
-
-  awk -v backend="${LLAMA_BACKEND}" \
-      -v target="${TARGET_VERSION}" \
-      -v override="${HSA_OVERRIDE_GFX_VERSION}" \
-      -v bin_path="${BIN_PATH}" '
-    BEGIN {
-      active_backend = 0
-      active_version = 0
-      hsa = 0
-      bin = 0
-    }
-    /^# Active backend:/ {
-      print "# Active backend: " backend
-      active_backend = 1
-      next
-    }
-    /^# Active llama.cpp version:/ {
-      print "# Active llama.cpp version: " target
-      active_version = 1
-      next
-    }
-    /^HSA_OVERRIDE_GFX_VERSION=/ {
-      print "HSA_OVERRIDE_GFX_VERSION=" override
-      hsa = 1
-      next
-    }
-    /^LLAMA_SERVER_BIN=/ {
-      print "LLAMA_SERVER_BIN=" bin_path
-      bin = 1
-      next
-    }
-    { print }
-    END {
-      if (!active_backend) {
-        print "# Active backend: " backend
-      }
-      if (!active_version) {
-        print "# Active llama.cpp version: " target
-      }
-      if (!hsa) {
-        print "HSA_OVERRIDE_GFX_VERSION=" override
-      }
-      if (!bin) {
-        print "LLAMA_SERVER_BIN=" bin_path
-      }
-    }
-  ' "${ENV_FILE}" > "${tmp_env}"
-
-  mv "${tmp_env}" "${ENV_FILE}"
-  chmod 0644 "${ENV_FILE}"
-  STATUS_ENV="Updated Runtime Selection"
-}
-
 # -----------------------------------------------------------------------------
 # Check-only status (no changes)
 # -----------------------------------------------------------------------------
 
 check_only_report() {
   local BIN_PATH="${LLAMA_DIR}/${BUILD_DIR}/bin/llama-server"
-  local active_backend="${LLAMA_BACKEND}"
   local UNIT_PATH="/etc/systemd/system/${UNIT_NAME}"
   local bin_status="missing"
   local env_status="missing"
   local ini_status="missing"
   local unit_status="missing"
   local service_mode="unknown"
-  local active_bin="unknown"
   local service_active="not-installed"
   local service_enabled="not-installed"
 
@@ -563,7 +448,6 @@ check_only_report() {
   fi
   if [[ -f "${ENV_FILE}" ]]; then
     env_status="present"
-    active_bin="$(grep -E '^LLAMA_SERVER_BIN=' "${ENV_FILE}" | tail -n 1 | cut -d= -f2- || true)"
   fi
   if [[ -f "${INI_FILE}" ]]; then
     ini_status="present"
@@ -587,9 +471,7 @@ check_only_report() {
   echo "   CHECK ONLY: GMKtec Evo-X2 llama.cpp"
   echo "========================================================"
   echo " Binary       : ${bin_status} (${BIN_PATH})"
-  echo " Backend      : ${active_backend}"
   echo " ENV file     : ${env_status} (${ENV_FILE})"
-  echo " Active bin   : ${active_bin}"
   echo " INI file     : ${ini_status} (${INI_FILE})"
   echo " Systemd unit : ${unit_status} (${UNIT_PATH})"
   echo " Service mode : ${service_mode}"
@@ -650,8 +532,7 @@ ExecStartPre=/usr/bin/test -x \${LLAMA_SERVER_BIN}
 $( [[ "${RUN_MODE}" == "scan-ini" ]] && echo "ExecStartPre=/usr/bin/test -f /etc/llama/models.ini" || echo "ExecStartPre=/usr/bin/test -d \${LLAMA_MODELS_DIR}" )
 
 # Router mode execution
-# Use a non-login shell so /etc/profile.d does not override values from EnvironmentFile.
-ExecStart=/usr/bin/bash -c '${EXEC_START_CMD}'
+ExecStart=/usr/bin/bash -lc '${EXEC_START_CMD}'
 
 Restart=on-failure
 RestartSec=5
@@ -692,7 +573,6 @@ finish_and_restart() {
   echo "   UPDATE COMPLETE: GMKtec Evo-X2 AI Stack"
   echo "========================================================"
   echo " Target Version : ${TARGET_VERSION}"
-  echo " Backend        : ${LLAMA_BACKEND}"
   echo " Active Mode    : ${CURRENT_MODE}"
   echo "--------------------------------------------------------"
   echo " Dependencies   : ${STATUS_DEPS}"
@@ -737,8 +617,6 @@ main() {
     prepare_repo
     clean_and_build
   fi
-
-  sync_env_file
 
   manage_systemd_unit
   finish_and_restart

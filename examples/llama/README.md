@@ -8,6 +8,8 @@ This directory contains the public-safe configuration examples that support the 
 - `models.ini.example`
 - `models.ini.example2`
 
+The current public-safe default path is `Vulkan`, while `HIP/ROCm` is kept as a documented fallback path rather than being removed.
+
 ## Required Runtime Directories
 
 The reference layout expects these directories to exist on the AI runtime host or LXC:
@@ -101,11 +103,14 @@ This is a deliberate memory-management choice, not a universal requirement. If y
 Holds runtime environment for:
 
 - ROCm paths
+- current backend-selection state
 - cache locations
 - router host and port
 - default model directory
 - location of the built `llama-server` binary
 - optional GPU-specific overrides such as `HSA_OVERRIDE_GFX_VERSION`
+
+The current example points to `build-vulkan` because that was the verified working backend in the refreshed reference environment.
 
 ### `models.ini.example`
 
@@ -141,12 +146,13 @@ It is still not a drop-in file. You must remove presets for models you do not ha
 
 ## Practical Note
 
-The included script is a public-safe reference, not a promise that every ROCm system should use exactly the same GPU target or override values.
+The included scripts are public-safe references, not a promise that every AMD system should use exactly the same backend, GPU target, or override values.
 
-The public filename was simplified to `update-llama.sh`, but the underlying logic is intentionally kept close to the working source version used in the reference stack.
+The public filename stays simple as `update-llama.sh`, and a dedicated `update-llama-vulkan.sh` wrapper is also included because Vulkan is currently the known-good default in the published reference setup.
 
 For a real deployment, verify:
 
 - your ROCm install path
 - your effective GPU architecture target
 - whether you actually need `HSA_OVERRIDE_GFX_VERSION`
+- whether Vulkan or HIP/ROCm is actually the stable backend on your own machine

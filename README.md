@@ -58,7 +58,7 @@ It is not trying to be:
 
 - hardware reference: `GMKtec Evo-X2`, `Ryzen AI Max+ 395`, `Radeon 8060S`, `128 GB RAM`
 - platform shape: `Proxmox -> privileged Ubuntu LXC -> Docker`
-- LLM path: `llama.cpp` in router mode, built for HIP/ROCm
+- LLM path: `llama.cpp` in router mode, currently defaulting to Vulkan with HIP/ROCm retained as a fallback path
 - image path: `ComfyUI` with `FLUX.2 klein 9B Q5 GGUF`
 - fallback image path: `Juggernaut XL Lightning`
 - video path: `LTX 2.3`
@@ -153,7 +153,7 @@ This repository currently includes:
 - hardware and platform notes
 - storage and ZFS notes
 - `llama.cpp` backend documentation
-- a public-safe `llama.cpp` management script
+- public-safe `llama.cpp` management scripts
 - public-safe MCP server scripts for ComfyUI
 - a public-safe MCP search server example
 - a public-safe SearXNG stack example that complements the MCP search server
@@ -249,6 +249,9 @@ The local LLM serving path is documented in three layers:
 - operational overview: [docs/llama-backend.md](docs/llama-backend.md)
 - required directories and example config: [examples/llama/README.md](examples/llama/README.md)
 - public-safe management script: [scripts/llama/update-llama.sh](scripts/llama/update-llama.sh)
+- dedicated Vulkan wrapper: [scripts/llama/update-llama-vulkan.sh](scripts/llama/update-llama-vulkan.sh)
+
+That backend document now also includes an informal Vulkan throughput snapshot for several currently used models.
 
 Important assumption:
 
@@ -308,6 +311,7 @@ After adapting the examples, a deployment is only meaningfully “working” if 
 - the LXC can access `/dev/dri` and `/dev/kfd`
 - the model directories exist and are mounted where the configs expect them
 - `llama.cpp` starts and can see the models referenced in `models.ini`
+- the selected backend actually loads tensors successfully, not just the router process itself
 - ComfyUI starts and can see the required model assets
 - MCP servers can reach their target services through the configured base URLs
 - generated files land in the expected output paths
@@ -359,11 +363,13 @@ If you are building a similar machine or debugging adjacent topics, these reposi
 ```text
 GMKtec-Evo-X2-public/
 ├── README.md
+├── CHANGELOG.md
 ├── SECURITY.md
 ├── LICENSE.md
 ├── CONTRIBUTING.md
 ├── docs/
 ├── examples/
+├── obsolete/
 └── scripts/
 ```
 
@@ -371,7 +377,9 @@ Main areas:
 
 - [docs](docs) for architecture, platform, storage, and operational notes
 - [examples](examples) for sanitized example configs
+- [obsolete](obsolete) for older reference files kept for comparison
 - [scripts](scripts) for public-safe helper scripts worth publishing
+- [CHANGELOG.md](CHANGELOG.md) for the publication-facing change summary
 
 ## Documentation and Safety
 
