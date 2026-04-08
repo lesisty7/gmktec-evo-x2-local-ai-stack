@@ -2,6 +2,13 @@
 
 This directory contains the public-safe configuration examples that support the `llama.cpp` backend described in this repository.
 
+These files are meant to be understood together with the published helper scripts, not as a separate standalone mini-guide:
+
+- [../../scripts/llama/update-llama.sh](../../scripts/llama/update-llama.sh)
+- [../../scripts/llama/update-llama-vulkan.sh](../../scripts/llama/update-llama-vulkan.sh)
+
+In practice, `router.env.example`, `models.ini.example`, and the update script form one operational bundle.
+
 ## Files
 
 - `router.env.example`
