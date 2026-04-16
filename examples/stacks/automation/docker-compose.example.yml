@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   postgres:
     image: pgvector/pgvector:pg16
@@ -80,6 +78,8 @@ services:
       - ${AI_MODELS_ROOT}:/data/ai-models:ro
       - ${DOCS_STORE_DIR}:/data/docs:ro
       - ${DOCS_STORE_DIR}:/mnt/containers/docs-store:ro
+      # Optional: mount a custom CA certificate
+      # - ${CUSTOM_CA_PATH}:/home/node/.n8n/custom-root-ca.crt:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:

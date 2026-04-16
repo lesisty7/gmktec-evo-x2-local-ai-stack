@@ -7,7 +7,7 @@ This directory contains a public-safe example of the `media` stack shape used by
 - a ComfyUI container for AMD hardware
 - persistent model mounts
 - persistent app data mounts
-- a small idle-unloader sidecar
+- a small idle-unloader sidecar (`comfyui_idle_unloader.py`, included in this directory)
 - a companion `.env.example` for paths, ports, and image tags
 - a matching pattern for storing manual workflow JSON files
 

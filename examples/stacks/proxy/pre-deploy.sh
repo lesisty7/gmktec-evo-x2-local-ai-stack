@@ -40,6 +40,9 @@ mkdir -p "${TARGET_DIR}" "${TARGET_DIR}/certs"
 
 if [[ "${CERT_ONLY}" -eq 0 ]]; then
   log "Preparing ${TARGET_DIR}"
+  if [[ -z "${TARGET_DIR}" ]] || [[ "${TARGET_DIR}" == "/" ]]; then
+    die "Refusing to clean root or empty path"
+  fi
   rm -rf "${TARGET_DIR:?}"/*
   mkdir -p "${TARGET_DIR}/landing"
   cp -a "${SOURCE_DIR}/." "${TARGET_DIR}/"

@@ -35,7 +35,8 @@ For WAN-facing exposure, automatic TLS management, and a simpler public edge set
 1. Copy `.env.example` to `.env`.
 2. Adjust the base domain and backend ports for your environment.
 3. Run `./pre-deploy.sh your-domain.example` to prepare landing assets and self-signed certificates.
-4. Review the generated Nginx package before exposing it outside your LAN.
+4. If you changed the domain, edit `nginx/conf.d/ai.local.conf` to match the new `server_name` and certificate paths.
+5. Review the generated Nginx package before exposing it outside your LAN.
 5. Start the stack with Docker Compose.
 
 ## Related Files

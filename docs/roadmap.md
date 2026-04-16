@@ -6,7 +6,7 @@ Turn this private draft into a public-safe repository that is useful to other pe
 
 ## Current Phase
 
-Current phase: `final review before first public release`
+Current phase: `published / ongoing maintenance`
 
 What is already done:
 

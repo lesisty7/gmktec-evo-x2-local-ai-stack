@@ -29,6 +29,7 @@ warmup = 0
 parallel = 1
 sleep-idle-seconds = 1200
 
+# mmproj is the multimodal projection file required for vision-language models.
 [example-vl-model]
 model = /mnt/ai-models/llm/example-vl-model/model.gguf
 mmproj = /mnt/ai-models/llm/example-vl-model/mmproj.gguf

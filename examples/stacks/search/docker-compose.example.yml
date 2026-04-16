@@ -17,16 +17,16 @@ services:
       - SETGID
       - SETUID
     networks:
-      - search-net
+      - ai-net
 
   redis:
     image: redis:alpine
     container_name: search-redis
     restart: always
     networks:
-      - search-net
+      - ai-net
 
 networks:
-  search-net:
+  ai-net:
     external: true
     name: ${DOCKER_NETWORK_NAME}

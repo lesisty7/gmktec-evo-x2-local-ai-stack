@@ -42,6 +42,8 @@ def run_script(req: RunRequest) -> RunResponse:
         raise HTTPException(status_code=404, detail="Script not found")
 
     try:
+        # NOTE: req.args are passed directly to the subprocess.
+        # This service is intended for trusted LAN use only.
         result = subprocess.run(
             ["python3", str(script_path), *req.args],
             input=req.stdin,

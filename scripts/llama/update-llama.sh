@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =============================================================================
-# GMKtec Evo-X2: Professional llama.cpp Manager (HIP/ROCm)
+# GMKtec Evo-X2: Professional llama.cpp Manager (Vulkan default, HIP/ROCm fallback)
 # Features: Build, Versioning, Mode Switching (Folder/INI), Config Protection
 #           Fast Mode Switching (No Recompile), Dependency Management
 # Note (2026-04-08):
@@ -475,7 +475,7 @@ LLAMA_HOST=0.0.0.0
 LLAMA_PORT=11434
 LLAMA_MODELS_DIR=${MODELS_DIR}
 LLAMA_MODELS_MAX=1
-LLAMA_CTX=32392
+LLAMA_CTX=32768
 LLAMA_NGL=999
 
 # Binary
